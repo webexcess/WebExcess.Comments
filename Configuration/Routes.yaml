@@ -1,0 +1,16 @@
+-
+  name: 'Comments Form'
+  uriPattern: '{node}/comment/{--webexcess_comments-commentform.@action}'
+  defaults:
+    '@package': 'Neos.Neos'
+    '@controller': 'Frontend\Node'
+    '@format': 'html'
+    '@action': 'show'
+    '--webexcess_comments-commentform':
+      '@package': 'WebExcess.Comments'
+      '@controller': 'Comments'
+      '@format': 'html'
+  routeParts:
+    node:
+      handler: Neos\Neos\Routing\FrontendNodeRoutePartHandler
+  appendExceedingArguments: true

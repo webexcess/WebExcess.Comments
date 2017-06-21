@@ -1,0 +1,26 @@
+Neos:
+  Flow:
+    mvc:
+      routes:
+        'WebExcess.Comments':
+          position: 'before Neos.Neos'
+  Neos:
+    fusion:
+      autoInclude:
+        WebExcess.Comments: true
+    userInterface:
+      translation:
+        autoInclude:
+          'WebExcess.Comments': ['Main', 'NodeTypes/*']
+    nodeTypes:
+      groups:
+        comments:
+          position: 100
+          label: 'WebExcess.Comments:Main:nodeTypes.groups.comments'
+          collapsed: false
+
+WebExcess:
+  Comments:
+    enableReplies: true
+    form:
+      preset: 'Bootstrap' # WebExcess | Bootstrap | Foundation | Material | Float

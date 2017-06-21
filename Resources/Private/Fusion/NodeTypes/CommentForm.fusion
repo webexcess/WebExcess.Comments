@@ -1,0 +1,5 @@
+prototype(WebExcess.Comments:CommentForm) < prototype(Neos.Neos:Plugin) {
+    package = 'WebExcess.Comments'
+    controller = 'Comments'
+    action = 'index'
+}

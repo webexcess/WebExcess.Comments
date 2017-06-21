@@ -1,0 +1,52 @@
+prototype(WebExcess.Comments:Comment) < prototype(Neos.Fusion:Tag) {
+    commentData = WebExcess.Comments:CommentData
+    enableReplies = ${enableReplies ? enableReplies : Configuration.setting('WebExcess.Comments.enableReplies')}
+    @context {
+        commentData = ${this.commentData}
+        enableReplies = ${this.enableReplies}
+    }
+
+    attributes.class = Neos.Fusion:RawArray {
+        comment = 'comment'
+    }
+
+    content = Neos.Fusion:Array {
+        head = WebExcess.Comments:CommentHeader
+        message = WebExcess.Comments:CommentMessage
+
+        reply = Neos.Fusion:Tag {
+            attributes.class = Neos.Fusion:RawArray {
+                reply = 'comment-replies'
+            }
+            content = Neos.Fusion:Array {
+                action = Neos.Fusion:Tag {
+                    attributes.class = Neos.Fusion:RawArray {
+                        action = 'comment-replies-action'
+                    }
+                    content = WebExcess.Comments:CommentReplyButton
+                }
+
+                replies = Neos.Fusion:Tag {
+                    replyNodes = ${q(node).children('comments').find('[instanceof WebExcess.Comments:Comment]').sort('publishingDate', 'ASC').get()}
+                    @context.replyNodes = ${this.replyNodes}
+                    @if.hasReplies = ${replyNodes ? true : false}
+
+                    attributes.class = Neos.Fusion:RawArray {
+                        replies = 'comment-replies-list'
+                    }
+
+                    content = Neos.Fusion:Collection {
+                        collection = ${replyNodes}
+                        itemName = 'node'
+                        itemRenderer = WebExcess.Comments:Comment {
+                            enableReplies = ${false}
+                        }
+                    }
+                }
+            }
+            @if.repliesEnabled = ${enableReplies}
+        }
+    }
+
+    @process.contentElementWrapping = Neos.Neos:ContentElementWrapping
+}

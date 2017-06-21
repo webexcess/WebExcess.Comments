@@ -1,0 +1,9 @@
+prototype(WebExcess.Comments:CommentMessage) < prototype(Neos.Fusion:Tag) {
+    attributes.class = Neos.Fusion:RawArray {
+        body = 'comment-message'
+    }
+    content = Neos.Fusion:Tag {
+        tagName = 'p'
+        content = ${commentData.message}
+    }
+}

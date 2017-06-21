@@ -1,0 +1,12 @@
+prototype(WebExcess.Comments:CommentHeader) < prototype(Neos.Fusion:Tag) {
+    attributes.class = Neos.Fusion:RawArray {
+        header = 'comment-header'
+    }
+    content = Neos.Fusion:Array {
+        name = WebExcess.Comments:CommenterName
+        date = WebExcess.Comments:CommentDate
+    }
+}
+
+
+

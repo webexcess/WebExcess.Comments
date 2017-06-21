@@ -1,0 +1,8 @@
+'WebExcess.Comments:CommentForm':
+  superTypes:
+    'Neos.Neos:Content': true
+  ui:
+    label: i18n
+    group: 'comments'
+    icon: 'icon-comment-alt'
+    inlineEditable: false

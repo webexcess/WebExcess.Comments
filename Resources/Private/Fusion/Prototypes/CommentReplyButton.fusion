@@ -1,0 +1,12 @@
+prototype(WebExcess.Comments:CommentReplyButton) < prototype(Neos.Fusion:Tag) {
+    tagName = 'button'
+    attributes {
+        class = Neos.Fusion:RawArray {
+            bootstrap = 'btn'
+            color = 'btn-secondary'
+            button = 'comment-reply-button'
+        }
+        data-identifier = ${commentData.identifier}
+    }
+    content = 'reply'
+}

@@ -1,0 +1,9 @@
+<f:form.validationResults for="comment.{fieldname}">
+    <div class="clearfix{f:if(condition: validationResults.flattenedErrors, then: ' error')}">
+        <label>
+            <f:form.checkbox property="{fieldname}" id="{fieldname}" value="1" />
+            <span><f:translate id="comment.form.{fieldname}" />{f:if(condition: required, then: '<sup class="is-required">*</sup>')}</span>
+        </label>
+        <f:render partial="Validation" arguments="{fieldname: fieldname}" />
+    </div>
+</f:form.validationResults>

@@ -1,0 +1,9 @@
+<f:form.validationResults for="comment.{fieldname}">
+    <div class="clearfix{f:if(condition: validationResults.flattenedErrors, then: ' error')}">
+        <label for="{fieldname}"><f:translate id="comment.form.{fieldname}" />{f:if(condition: required, then: '<sup class="is-required">*</sup>')}</label>
+        <div class="input">
+            <f:form.textfield property="{fieldname}" id="{fieldname}" type="{f:if(condition: type, then: type, else: 'text')}" />
+        </div>
+        <f:render partial="Validation" arguments="{fieldname: fieldname}" />
+    </div>
+</f:form.validationResults>

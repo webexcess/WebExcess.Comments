@@ -1,0 +1,7 @@
+<f:validation.results for="comment.{fieldname}">
+    <f:if condition="{validationResults.flattenedErrors}">
+        <f:for each="{validationResults.errors}" as="error">
+            <div class="help-inline">{error -> f:translate(id: error.code, arguments: error.arguments, package: 'Neos.Flow', source: 'ValidationErrors') -> f:format.raw()}</div>
+        </f:for>
+    </f:if>
+</f:validation.results>

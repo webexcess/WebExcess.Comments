@@ -1,0 +1,11 @@
+prototype(WebExcess.Comments:CommentData) < prototype(Neos.Fusion:RawArray) {
+    identifier = ${node.identifier}
+
+    firstname = ${q(node).property('firstname')}
+    lastname = ${q(node).property('lastname')}
+    email = ${q(node).property('email')}
+    message = ${q(node).property('message')}
+    replyTo = ${q(node).property('replyTo')}
+
+    publishingDate = ${q(node).property('publishingDate')}
+}

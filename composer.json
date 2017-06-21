@@ -1,0 +1,20 @@
+{
+  "name": "webexcess/comments",
+  "description": "",
+  "type": "neos-package",
+  "require": {
+    "neos/neos": "*",
+    "flowpack/listable": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "WebExcess\\Comments\\": "Classes/"
+    }
+  },
+  "extra": {
+    "installer-name": "WebExcess.Comments",
+    "neos": {
+      "package-key": "WebExcess.Comments"
+    }
+  }
+}

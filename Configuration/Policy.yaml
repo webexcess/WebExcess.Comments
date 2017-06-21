@@ -1,0 +1,11 @@
+privilegeTargets:
+  'Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
+    WebExcess_Comments_FormAccess:
+      matcher: method(WebExcess\Comments\Controller\CommentsController->(index|create|success)Action())
+
+roles:
+  'Neos.Flow:Everybody':
+    privileges:
+      -
+        privilegeTarget: WebExcess_Comments_FormAccess
+        permission: GRANT

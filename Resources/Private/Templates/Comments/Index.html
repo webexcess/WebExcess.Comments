@@ -1,0 +1,10 @@
+<f:form action="create" name="comment" id="comment-form" object="{comment}">
+    <f:comment><f:render partial="HiddenField" arguments="{fieldname: 'reference'}" /></f:comment>
+    <f:render partial="TextField" arguments="{fieldname: 'reference'}" />
+    <f:render partial="TextField" arguments="{fieldname: 'firstname', required: true}" />
+    <f:render partial="TextField" arguments="{fieldname: 'lastname', required: true}" />
+    <f:render partial="TextField" arguments="{fieldname: 'email', required: true, type: 'email'}" />
+    <f:render partial="TextArea" arguments="{fieldname: 'message', required: true}" />
+    <f:render partial="Checkbox" arguments="{fieldname: 'notify'}" />
+    <f:render partial="Submit" />
+</f:form>

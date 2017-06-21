@@ -1,0 +1,7 @@
+prototype(WebExcess.Comments:CommentsListHeader) < prototype(Neos.Fusion:Tag) {
+    tagName = 'h3'
+    attributes.class = Neos.Fusion:RawArray {
+        header = 'comments-header'
+    }
+    content = ${commentsCount + ' Comments'}
+}
