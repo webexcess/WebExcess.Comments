@@ -12,12 +12,16 @@ namespace WebExcess\Comments\Controller;
  */
 
 use Neos\ContentRepository\Domain\Model\NodeInterface;
+use Neos\ContentRepository\Domain\Service\ContextFactory;
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Mvc\Controller\ActionController;
 use Neos\Flow\Mvc\View\ViewInterface;
+use Neos\Flow\Security\Context;
+use Neos\Neos\Domain\Service\UserService;
 use Neos\FluidAdaptor\View\TemplateView;
 use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\ContentRepository\Domain\Service\NodeTypeManager;
+use Neos\Neos\Domain\Service\ContentDimensionPresetSourceInterface;
 use WebExcess\Comments\Domain\Model\Comment;
 
 class CommentsController extends ActionController
@@ -36,11 +40,52 @@ class CommentsController extends ActionController
     protected $settings;
 
     /**
+     * @var Context
+     * @Flow\Inject
+     */
+    protected $securityContext;
+
+    /**
+     * @Flow\Inject
+     * @var UserService
+     */
+    protected $userService;
+
+    /**
+     * @Flow\Inject
+     * @var ContentDimensionPresetSourceInterface
+     */
+    protected $contentDimensionPresetSource;
+
+    /**
      * @return void
      */
     public function indexAction()
     {
-        $this->view->assign('comment', new Comment());
+        $comment = new Comment();
+        $isLoggedIn = false;
+
+        $authenticationTokens = $this->securityContext->getAuthenticationTokens();
+        if (!empty($authenticationTokens)) {
+            $account = $this->securityContext->getAccount();
+            if ($account !== null) {
+                foreach ($authenticationTokens as $authenticationProviderName => $obj) {
+                    $user = $this->userService->getUser($account->getAccountIdentifier(), $authenticationProviderName);
+                    if ($user) {
+                        $isLoggedIn = true;
+                        $comment->setEmail($account->getAccountIdentifier());
+                        $comment->setFirstname($user->getName()->getFirstName());
+                        $comment->setLastname($user->getName()->getLastName());
+                        $comment->setAccount($account->getAccountIdentifier());
+                    }
+                }
+            }
+        }
+
+        $this->view->assignMultiple(array(
+            'comment' => $comment,
+            'isLoggedIn' => $isLoggedIn
+        ));
     }
 
     /**
@@ -49,6 +94,7 @@ class CommentsController extends ActionController
      */
     public function createAction(Comment $comment)
     {
+        /** @var NodeInterface $documentNode */
         $documentNode = $this->request->getInternalArgument('__documentNode');
         $q = new FlowQuery(array($documentNode));
 
@@ -77,7 +123,8 @@ class CommentsController extends ActionController
             }
 
             $this->persistenceManager->persistAll();
-            $this->redirect('success');
+//            $this->redirect('success');
+            $this->redirect('index');
         }
     }
 

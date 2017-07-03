@@ -7,12 +7,20 @@ prototype(WebExcess.Comments:Comment) < prototype(Neos.Fusion:Tag) {
     }
 
     attributes.class = Neos.Fusion:RawArray {
-        comment = 'comment'
+        comment = 'comment-item'
     }
 
     content = Neos.Fusion:Array {
-        head = WebExcess.Comments:CommentHeader
-        message = WebExcess.Comments:CommentMessage
+        comment = Neos.Fusion:Tag {
+            attributes.class = Neos.Fusion:RawArray {
+                comment = 'comment'
+            }
+
+            content = Neos.Fusion:Array {
+                image = WebExcess.Comments:CommentImage
+                content = WebExcess.Comments:CommentContent
+            }
+        }
 
         reply = Neos.Fusion:Tag {
             attributes.class = Neos.Fusion:RawArray {

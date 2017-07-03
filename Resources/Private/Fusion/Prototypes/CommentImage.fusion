@@ -1,0 +1,12 @@
+prototype(WebExcess.Comments:CommentImage) < prototype(Neos.Fusion:Tag) {
+    attributes.class = Neos.Fusion:RawArray {
+        comment = 'comment-image'
+    }
+
+    content = Neos.Fusion:Tag {
+        tagName = 'img'
+        attributes {
+            src = ${Gravatar.uri(commentData.email)}
+        }
+    }
+}

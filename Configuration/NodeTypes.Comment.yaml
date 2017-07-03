@@ -72,3 +72,5 @@
           group: 'comment'
           editorOptions:
             format: 'd.m.Y H:i'
+    account:
+      type: string

@@ -1,10 +1,33 @@
-<f:form action="create" name="comment" id="comment-form" object="{comment}">
-    <f:comment><f:render partial="HiddenField" arguments="{fieldname: 'reference'}" /></f:comment>
-    <f:render partial="TextField" arguments="{fieldname: 'reference'}" />
-    <f:render partial="TextField" arguments="{fieldname: 'firstname', required: true}" />
-    <f:render partial="TextField" arguments="{fieldname: 'lastname', required: true}" />
-    <f:render partial="TextField" arguments="{fieldname: 'email', required: true, type: 'email'}" />
-    <f:render partial="TextArea" arguments="{fieldname: 'message', required: true}" />
-    <f:render partial="Checkbox" arguments="{fieldname: 'notify'}" />
-    <f:render partial="Submit" />
-</f:form>
+<div class="webexcess-comment-form">
+    <f:form action="create" name="comment" id="comment-form" object="{comment}">
+        <f:if condition="{isLoggedIn}">
+            <f:then>
+                <h4><f:translate id="comment.form.loggedin" arguments="{0: comment.firstname, 1: comment.lastname}" /></h4>
+                <f:render partial="HiddenField" arguments="{fieldname: 'firstname'}" />
+                <f:render partial="HiddenField" arguments="{fieldname: 'lastname'}" />
+                <f:render partial="HiddenField" arguments="{fieldname: 'email'}" />
+                <f:render partial="HiddenField" arguments="{fieldname: 'account'}" />
+            </f:then>
+            <f:else>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <f:render partial="TextField" arguments="{fieldname: 'firstname', required: true}" />
+                    </div>
+                    <div class="col-sm-4">
+                        <f:render partial="TextField" arguments="{fieldname: 'lastname', required: true}" />
+                    </div>
+                    <div class="col-sm-4">
+                        <f:render partial="TextField" arguments="{fieldname: 'email', required: true, type: 'email'}" />
+                    </div>
+                </div>
+            </f:else>
+        </f:if>
+
+        <f:render partial="TextArea" arguments="{fieldname: 'message', required: true}" />
+        <f:render partial="Checkbox" arguments="{fieldname: 'notify'}" />
+
+        <f:render partial="HiddenField" arguments="{fieldname: 'reference'}" />
+        <f:comment><f:render partial="TextField" arguments="{fieldname: 'reference'}" /></f:comment>
+        <f:render partial="Submit" />
+    </f:form>
+</div>

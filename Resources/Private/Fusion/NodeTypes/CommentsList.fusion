@@ -1,6 +1,6 @@
 prototype(WebExcess.Comments:CommentsList) < prototype(Neos.Fusion:Tag) {
     attributes.class = Neos.Fusion:RawArray {
-        container = 'container'
+        list = 'webexcess-comment-list'
     }
     content = Neos.Fusion:Array {
         commentNodes = ${q(node).children('comments').children('[instanceof WebExcess.Comments:Comment]')}

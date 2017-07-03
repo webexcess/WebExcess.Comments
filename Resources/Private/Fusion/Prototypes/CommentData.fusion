@@ -8,4 +8,5 @@ prototype(WebExcess.Comments:CommentData) < prototype(Neos.Fusion:RawArray) {
     replyTo = ${q(node).property('replyTo')}
 
     publishingDate = ${q(node).property('publishingDate')}
+    account = ${q(node).property('account')}
 }

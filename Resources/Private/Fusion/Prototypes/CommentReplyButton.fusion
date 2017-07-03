@@ -10,3 +10,11 @@ prototype(WebExcess.Comments:CommentReplyButton) < prototype(Neos.Fusion:Tag) {
     }
     content = 'reply'
 }
+
+prototype(WebExcess.Theme:SpecialPage) {
+    prototype(WebExcess.Comments:CommentReplyButton) {
+        attributes.class.color = 'special-color'
+        attributes.class.new = 'new-class'
+        attributes.class.bootstrap >
+    }
+}

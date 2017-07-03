@@ -49,6 +49,11 @@ class Comment
     /**
      * @var string
      */
+    protected $account;
+
+    /**
+     * @var string
+     */
     protected $reference;
 
     /**
@@ -129,6 +134,22 @@ class Comment
     public function setNotify($notify)
     {
         $this->notify = $notify;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAccount()
+    {
+        return $this->account;
+    }
+
+    /**
+     * @param string $account
+     */
+    public function setAccount($account)
+    {
+        $this->account = $account;
     }
 
     /**

@@ -1,1 +1,129 @@
-!function(e){function t(o){if(n[o])return n[o].exports;var r=n[o]={i:o,l:!1,exports:{}};return e[o].call(r.exports,r,r.exports,t),r.l=!0,r.exports}var n={};t.m=e,t.c=n,t.d=function(e,n,o){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:o})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=0)}([function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{default:e}}var r=n(1),u=o(r),i=n(3);o(i);(0,u.default)()},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var o=n(2),r=function(e){return e&&e.__esModule?e:{default:e}}(o),u=function(){return document.querySelectorAll(".comment-reply-button").forEach(function(e){e.addEventListener("click",function(e){var t=e.target;document.getElementById("reference").value=t.getAttribute("data-identifier"),(0,r.default)(document.getElementById("reference"))})})};t.default=u},function(e,t,n){"use strict";var o,r,u="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};!function(u,i){o=i,void 0!==(r="function"==typeof o?o.call(t,n,t,e):o)&&(e.exports=r)}(0,function(){if("object"===("undefined"==typeof window?"undefined":u(window))&&void 0!==document.querySelectorAll&&void 0!==window.pageYOffset&&void 0!==history.pushState){var e=function(e,t){return"HTML"===e.nodeName?-t:e.getBoundingClientRect().top+t},t=function(e){return e<.5?4*e*e*e:(e-1)*(2*e-2)*(2*e-2)+1},n=function(e,n,o,r){return o>r?n:e+(n-e)*t(o/r)},o=function(t,o,r,u){o=o||500,u=u||window;var i=u.scrollTop||window.pageYOffset;if("number"==typeof t)var c=parseInt(t);else var c=e(t,i);var f=Date.now(),a=window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||function(e){window.setTimeout(e,15)};!function e(){var l=Date.now()-f;u!==window?u.scrollTop=n(i,c,l,o):window.scroll(0,n(i,c,l,o)),l>o?"function"==typeof r&&r(t):a(e)}()},r=function(e){e.preventDefault(),location.hash!==this.hash&&window.history.pushState(null,null,this.hash);var t=document.getElementById(this.hash.substring(1));t&&o(t,500,function(e){location.replace("#"+e.id)})};return document.addEventListener("DOMContentLoaded",function(){for(var e,t=document.querySelectorAll('a[href^="#"]:not([href="#"])'),n=t.length;e=t[--n];)e.addEventListener("click",r,!1)}),o}})},function(e,t){}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _Reply = __webpack_require__(1);
+
+var _Reply2 = _interopRequireDefault(_Reply);
+
+var _Main = __webpack_require__(2);
+
+var _Main2 = _interopRequireDefault(_Main);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+(0, _Reply2.default)();
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var ReplyButton = function ReplyButton() {
+    var formId = 'comment-form';
+    var formFieldId = 'reference';
+    var buttonClass = '.comment-reply-button';
+
+    return document.querySelectorAll(buttonClass).forEach(function (buttonNode) {
+        buttonNode.addEventListener('click', function (event) {
+            var button = event.target;
+            document.getElementById(formFieldId).value = button.getAttribute('data-identifier');
+
+            var form = document.getElementById(formId);
+            var clonedForm = form.cloneNode(true);
+            form.parentNode.removeChild(form);
+            button.parentNode.appendChild(clonedForm);
+            // button.parentNode.removeChild(button);
+
+            document.querySelectorAll('.comment-replies-action').forEach(function (element) {
+                element.classList.remove('has-form');
+            });
+
+            button.parentNode.classList.add('has-form');
+        });
+    });
+};
+
+exports.default = ReplyButton;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ })
+/******/ ]);

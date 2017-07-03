@@ -19,6 +19,10 @@ Neos:
           label: 'WebExcess.Comments:Main:nodeTypes.groups.comments'
           collapsed: false
 
+  Fusion:
+    defaultContext:
+      Gravatar: 'WebExcess\Comments\Eel\Helper\GravatarHelper'
+
 WebExcess:
   Comments:
     enableReplies: true

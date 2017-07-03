@@ -2,6 +2,9 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file original="" product-name="WebExcess.Comments" source-language="en" datatype="plaintext">
         <body>
+			<trans-unit id="comment.form.loggedin" xml:space="preserve">
+				<source>You are commenting as «{0} {1}»</source>
+			</trans-unit>
             <trans-unit id="comment.form.firstname" xml:space="preserve">
 				<source>Firstname</source>
 			</trans-unit>
