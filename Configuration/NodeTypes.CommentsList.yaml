@@ -1,4 +1,5 @@
 'WebExcess.Comments:CommentsList.Mixin':
+  abstract: true
   childNodes:
     comments:
       type: 'Neos.Neos:ContentCollection'
