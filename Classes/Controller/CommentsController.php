@@ -65,22 +65,7 @@ class CommentsController extends ActionController
         $comment = new Comment();
         $isLoggedIn = false;
 
-        $authenticationTokens = $this->securityContext->getAuthenticationTokens();
-        if (!empty($authenticationTokens)) {
-            $account = $this->securityContext->getAccount();
-            if ($account !== null) {
-                foreach ($authenticationTokens as $authenticationProviderName => $obj) {
-                    $user = $this->userService->getUser($account->getAccountIdentifier(), $authenticationProviderName);
-                    if ($user) {
-                        $isLoggedIn = true;
-                        $comment->setEmail($account->getAccountIdentifier());
-                        $comment->setFirstname($user->getName()->getFirstName());
-                        $comment->setLastname($user->getName()->getLastName());
-                        $comment->setAccount($account->getAccountIdentifier());
-                    }
-                }
-            }
-        }
+        $isLoggedIn = $this->setAccountDataIfAuthenticated($comment);
 
         $this->view->assignMultiple(array(
             'comment' => $comment,
@@ -104,6 +89,8 @@ class CommentsController extends ActionController
             $commentsCollection = $q->find('#' . $comment->getReference())->children('comments')->context(['workspaceName' => 'live'])->get(0);
         }
 
+        $this->setAccountDataIfAuthenticated($comment);
+
         if ($commentsCollection !== null) {
             $propertyNames = $this->reflectionService->getClassPropertyNames('WebExcess\Comments\Domain\Model\Comment');
             $commentNodeType = $this->nodeTypeManager->getNodeType('WebExcess.Comments:Comment');
@@ -125,6 +112,8 @@ class CommentsController extends ActionController
             $this->persistenceManager->persistAll();
 //            $this->redirect('success');
             $this->redirect('index');
+        } else {
+            throw new \Neos\Neos\Exception('No "comments" ContentCollection found');
         }
     }
 
@@ -143,5 +132,30 @@ class CommentsController extends ActionController
         $partialRootPaths = $view->getTemplatePaths()->getPartialRootPaths();
         $partialRootPaths[] = 'resource://WebExcess.Comments/Private/Partials/FormElements/' . $this->settings['form']['preset'] . '/';
         $view->getTemplatePaths()->setPartialRootPaths($partialRootPaths);
+    }
+
+    /**
+     * @param Comment $comment
+     * @return bool
+     */
+    private function setAccountDataIfAuthenticated(Comment &$comment) {
+        $isLoggedIn = false;
+        $authenticationTokens = $this->securityContext->getAuthenticationTokens();
+        if (!empty($authenticationTokens)) {
+            $account = $this->securityContext->getAccount();
+            if ($account !== null) {
+                foreach ($authenticationTokens as $authenticationProviderName => $obj) {
+                    $user = $this->userService->getUser($account->getAccountIdentifier(), $authenticationProviderName);
+                    if ($user) {
+                        $isLoggedIn = true;
+                        $comment->setEmail($account->getAccountIdentifier());
+                        $comment->setFirstname($user->getName()->getFirstName());
+                        $comment->setLastname($user->getName()->getLastName());
+                        $comment->setAccount($account->getAccountIdentifier());
+                    }
+                }
+            }
+        }
+        return $isLoggedIn;
     }
 }
