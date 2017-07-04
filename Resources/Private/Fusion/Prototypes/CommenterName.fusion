@@ -3,8 +3,9 @@ prototype(WebExcess.Comments:CommenterName) < prototype(Neos.Fusion:Tag) {
         name = 'comment-name'
     }
     content = Neos.Fusion:RawArray {
-        firstname = ${String.firstLetterToUpperCase(String.htmlSpecialChars(commentData.firstname))}
-        lastname = ${String.firstLetterToUpperCase(String.htmlSpecialChars(commentData.lastname))}
+        firstname = ${String.firstLetterToUpperCase(commentData.firstname)}
+        lastname = ${String.firstLetterToUpperCase(commentData.lastname)}
+//        lastname.@process.crop = ${String.crop(value, 1, '.')}
         loggedIn = ${commentData.account ? '(user)' : false}
 
         @process.arrayToString = ${Array.join(value, ' ')}
