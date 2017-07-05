@@ -63,7 +63,6 @@ class CommentsController extends ActionController
     public function indexAction()
     {
         $comment = new Comment();
-        $isLoggedIn = false;
 
         $isLoggedIn = $this->setAccountDataIfAuthenticated($comment);
 
