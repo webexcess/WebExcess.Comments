@@ -23,4 +23,11 @@ prototype(WebExcess.Comments:CommentsList) < prototype(Neos.Fusion:Tag) {
             }
         }
     }
+
+    @process.contentElementWrapping {
+        expression = Neos.Neos:ContentElementWrapping
+        @position = 'end 999999999'
+    }
+
+    @exceptionHandler = 'Neos\\Neos\\Fusion\\ExceptionHandlers\\NodeWrappingHandler'
 }
