@@ -23,6 +23,7 @@ use Neos\ContentRepository\Domain\Service\NodeTypeManager;
 use Neos\Neos\Domain\Service\ContentDimensionPresetSourceInterface;
 use WebExcess\Comments\Domain\Model\Comment;
 use Neos\Neos\Exception;
+use Neos\Error\Messages\Message;
 
 class CommentsController extends ActionController
 {
@@ -121,6 +122,7 @@ class CommentsController extends ActionController
             }
 
             $this->persistenceManager->persistAll();
+            $this->flashMessageContainer->addMessage(new Message('Comment successfully added', 1499693207));
             $this->redirect('index');
         } else {
             throw new Exception('No "comments" ContentCollection found');

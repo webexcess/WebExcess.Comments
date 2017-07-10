@@ -21,6 +21,10 @@
 				<source>Notify me on changes</source>
 			</trans-unit>
 
+            <trans-unit id="comment.form.flashMessage.1499693207" xml:space="preserve">
+				<source>Tank you! Comment successfully added.</source>
+			</trans-unit>
+
             <trans-unit id="nodeTypes.groups.comments" xml:space="preserve">
 				<source>Comments</source>
 			</trans-unit>
