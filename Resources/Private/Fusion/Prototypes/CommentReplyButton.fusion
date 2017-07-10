@@ -8,7 +8,7 @@ prototype(WebExcess.Comments:CommentReplyButton) < prototype(Neos.Fusion:Tag) {
         }
         data-identifier = ${commentData.identifier}
     }
-    content = 'reply'
+    content = ${Translation.translate('WebExcess.Comments:Main:comment.form.btn.reply')}
 
     @context {
         allowAccount = ${Security.getAccount() && Configuration.setting('WebExcess.Comments.allowCommenting.account') ? true : false}
@@ -16,12 +16,4 @@ prototype(WebExcess.Comments:CommentReplyButton) < prototype(Neos.Fusion:Tag) {
     }
 
     @if.isAllowed = ${allowAccount || allowGuest ? true : false}
-}
-
-prototype(WebExcess.Theme:SpecialPage) {
-    prototype(WebExcess.Comments:CommentReplyButton) {
-        attributes.class.color = 'special-color'
-        attributes.class.new = 'new-class'
-        attributes.class.bootstrap >
-    }
 }

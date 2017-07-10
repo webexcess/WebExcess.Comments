@@ -20,6 +20,12 @@
             <trans-unit id="comment.form.notify" xml:space="preserve">
 				<source>Notify me on changes</source>
 			</trans-unit>
+            <trans-unit id="comment.form.btn.submit" xml:space="preserve">
+				<source>Comment</source>
+			</trans-unit>
+            <trans-unit id="comment.form.btn.reply" xml:space="preserve">
+				<source>Reply</source>
+			</trans-unit>
 
             <trans-unit id="comment.form.flashMessage.1499693207" xml:space="preserve">
 				<source>Tank you! Comment successfully added.</source>

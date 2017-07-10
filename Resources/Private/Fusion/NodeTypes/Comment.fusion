@@ -1,9 +1,9 @@
 prototype(WebExcess.Comments:Comment) < prototype(Neos.Fusion:Tag) {
     commentData = WebExcess.Comments:CommentData
-    enableReplies = ${enableReplies ? enableReplies : Configuration.setting('WebExcess.Comments.enableReplies')}
+    replyDepth = 0
     @context {
         commentData = ${this.commentData}
-        enableReplies = ${this.enableReplies}
+        replyDepth = ${this.replyDepth}
     }
 
     attributes.class = Neos.Fusion:RawArray {
@@ -47,12 +47,12 @@ prototype(WebExcess.Comments:Comment) < prototype(Neos.Fusion:Tag) {
                         collection = ${replyNodes}
                         itemName = 'node'
                         itemRenderer = WebExcess.Comments:Comment {
-                            enableReplies = ${false}
+                            replyDepth = ${replyDepth + 1}
                         }
                     }
                 }
             }
-            @if.repliesEnabled = ${enableReplies}
+            @if.repliesEnabled = ${replyDepth < Configuration.setting('WebExcess.Comments.repliesDepth')}
         }
     }
 

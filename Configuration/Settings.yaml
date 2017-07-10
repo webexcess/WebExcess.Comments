@@ -30,6 +30,6 @@ WebExcess:
     allowCommenting:
       account: true
       guest: true
-    enableReplies: true
+    repliesDepth: 1
     form:
       preset: 'Bootstrap' # WebExcess | Bootstrap | Foundation | Material | Float
