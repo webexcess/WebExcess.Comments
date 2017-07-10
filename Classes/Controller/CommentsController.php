@@ -11,10 +11,9 @@ namespace WebExcess\Comments\Controller;
  * source code.
  */
 
-use Neos\ContentRepository\Domain\Model\NodeInterface;
-use Neos\ContentRepository\Domain\Service\ContextFactory;
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Mvc\Controller\ActionController;
+use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\Flow\Mvc\View\ViewInterface;
 use Neos\Flow\Security\Context;
 use Neos\Neos\Domain\Service\UserService;
@@ -23,6 +22,7 @@ use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\ContentRepository\Domain\Service\NodeTypeManager;
 use Neos\Neos\Domain\Service\ContentDimensionPresetSourceInterface;
 use WebExcess\Comments\Domain\Model\Comment;
+use Neos\Neos\Exception;
 
 class CommentsController extends ActionController
 {
@@ -74,6 +74,7 @@ class CommentsController extends ActionController
     /**
      * @param Comment $comment
      * @return void
+     * @throws Exception
      */
     public function createAction(Comment $comment)
     {
@@ -108,18 +109,10 @@ class CommentsController extends ActionController
             }
 
             $this->persistenceManager->persistAll();
-//            $this->redirect('success');
             $this->redirect('index');
         } else {
-            throw new \Neos\Neos\Exception('No "comments" ContentCollection found');
+            throw new Exception('No "comments" ContentCollection found');
         }
-    }
-
-    /**
-     * @return void
-     */
-    public function successAction()
-    {
     }
 
     protected function initializeView(ViewInterface $view)
@@ -135,6 +128,7 @@ class CommentsController extends ActionController
     /**
      * @param Comment $comment
      * @return bool
+     * @throws Exception
      */
     private function setAccountDataIfAuthenticated(Comment &$comment) {
         $isLoggedIn = false;
@@ -145,8 +139,15 @@ class CommentsController extends ActionController
                 foreach ($authenticationTokens as $authenticationProviderName => $obj) {
                     $user = $this->userService->getUser($account->getAccountIdentifier(), $authenticationProviderName);
                     if ($user) {
+                        if ($user->getElectronicAddresses()->count() <= 0) {
+                            throw new Exception('User "' . $account->getAccountIdentifier() . '" has no ElectronicAddress defined');
+                        }
+                        if (!$user->getPrimaryElectronicAddress()) {
+                            $user->setPrimaryElectronicAddress($user->getElectronicAddresses()->first());
+                        }
+
                         $isLoggedIn = true;
-                        $comment->setEmail($account->getAccountIdentifier());
+                        $comment->setEmail($user->getPrimaryElectronicAddress()->getIdentifier());
                         $comment->setFirstname($user->getName()->getFirstName());
                         $comment->setLastname($user->getName()->getLastName());
                         $comment->setAccount($account->getAccountIdentifier());
