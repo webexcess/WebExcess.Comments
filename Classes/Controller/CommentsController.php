@@ -82,10 +82,22 @@ class CommentsController extends ActionController
         $documentNode = $this->request->getInternalArgument('__documentNode');
         $q = new FlowQuery(array($documentNode));
 
+        $dimensions = array();
+        $targetDimension = array();
+        if ($this->settings['writeToDefaultDimension'] === true) {
+            foreach ($this->contentDimensionPresetSource->getAllPresets() as $dimensionName => $dimensionConfiguration) {
+                $dimensions[$dimensionName] = $this->contentDimensionPresetSource->getDefaultPreset($dimensionName)['values'];
+                $targetDimension[$dimensionName] = $this->contentDimensionPresetSource->getDefaultPreset($dimensionName)['values'][0];
+            }
+        } else {
+            $dimensions = $documentNode->getContext()->getDimensions();
+            $targetDimension = $documentNode->getContext()->getTargetDimensions();
+        }
+
         /** @var NodeInterface $commentsCollection */
-        $commentsCollection = $q->find('[instanceof WebExcess.Comments:CommentsList]')->children('comments')->context(['workspaceName' => 'live'])->get(0);
+        $commentsCollection = $q->find('[instanceof WebExcess.Comments:CommentsList]')->children('comments')->context(['workspaceName' => 'live', 'dimensions' => $dimensions, 'targetDimensions' => $targetDimension])->get(0);
         if ($comment->getReference() != '') {
-            $commentsCollection = $q->find('#' . $comment->getReference())->children('comments')->context(['workspaceName' => 'live'])->get(0);
+            $commentsCollection = $q->find('#' . $comment->getReference())->children('comments')->context(['workspaceName' => 'live', 'dimensions' => $dimensions, 'targetDimensions' => $targetDimension])->get(0);
         }
 
         $this->setAccountDataIfAuthenticated($comment);
