@@ -26,6 +26,7 @@ Neos:
 WebExcess:
   Comments:
     writeToDefaultDimension: false
+    publishCommentsLive: true
     enableReplies: true
     form:
       preset: 'Bootstrap' # WebExcess | Bootstrap | Foundation | Material | Float

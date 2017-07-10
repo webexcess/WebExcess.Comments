@@ -107,7 +107,7 @@ class CommentsController extends ActionController
             $commentNodeType = $this->nodeTypeManager->getNodeType('WebExcess.Comments:Comment');
 
             $newCommentNode = $commentsCollection->createNode(uniqid('comment-'), $commentNodeType);
-            $newCommentNode->setHidden(false);
+            $newCommentNode->setHidden(!$this->settings['publishCommentsLive']);
             $newCommentNode->setProperty('publishingDate', new \DateTime());
 
             foreach ($propertyNames as $propertyName) {
