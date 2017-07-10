@@ -21,6 +21,7 @@ use Neos\FluidAdaptor\View\TemplateView;
 use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\ContentRepository\Domain\Service\NodeTypeManager;
 use Neos\Neos\Domain\Service\ContentDimensionPresetSourceInterface;
+use Neos\Party\Domain\Model\ElectronicAddress;
 use WebExcess\Comments\Domain\Model\Comment;
 use Neos\Neos\Exception;
 use Neos\Error\Messages\Message;
@@ -163,10 +164,17 @@ class CommentsController extends ActionController
                     $user = $this->userService->getUser($account->getAccountIdentifier(), $authenticationProviderName);
                     if ($user) {
                         if ($user->getElectronicAddresses()->count() <= 0) {
-                            throw new Exception('User "' . $account->getAccountIdentifier() . '" has no ElectronicAddress defined');
-                        }
-                        if (!$user->getPrimaryElectronicAddress()) {
-                            $user->setPrimaryElectronicAddress($user->getElectronicAddresses()->first());
+                            if (filter_var($account->getAccountIdentifier(), FILTER_VALIDATE_EMAIL)) {
+                                $electronicAddress = new ElectronicAddress();
+                                $electronicAddress->setIdentifier($account->getAccountIdentifier());
+                                $user->setPrimaryElectronicAddress($electronicAddress);
+                            } else {
+                                throw new Exception('User "' . $account->getAccountIdentifier() . '" has no ElectronicAddress defined');
+                            }
+                        } else {
+                            if (!$user->getPrimaryElectronicAddress()) {
+                                $user->setPrimaryElectronicAddress($user->getElectronicAddresses()->first());
+                            }
                         }
 
                         $isLoggedIn = true;
