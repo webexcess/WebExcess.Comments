@@ -5,5 +5,10 @@ prototype(WebExcess.Comments:CommentMessage) < prototype(Neos.Fusion:Tag) {
     content = Neos.Fusion:Tag {
         tagName = 'p'
         content = ${commentData.message}
+        content.@process.htmlSpecialChars = ${String.htmlSpecialChars(value)}
+        content.@process.nl2br {
+            expression = ${String.pregReplace(value, "/\n/", '<br>')}
+            @position = 'after htmlSpecialChars'
+        }
     }
 }

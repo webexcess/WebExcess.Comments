@@ -69,6 +69,9 @@ class Comment
      */
     public function setFirstname($firstname)
     {
+        $firstname = strip_tags($firstname);
+        $firstname = preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', ' ', $firstname);
+        $firstname =  preg_replace('/[ \t]+/', ' ', $firstname);
         $this->firstname = $firstname;
     }
 
@@ -85,6 +88,9 @@ class Comment
      */
     public function setLastname($lastname)
     {
+        $lastname = strip_tags($lastname);
+        $lastname = preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', ' ', $lastname);
+        $lastname =  preg_replace('/[ \t]+/', ' ', $lastname);
         $this->lastname = $lastname;
     }
 
@@ -117,6 +123,9 @@ class Comment
      */
     public function setMessage($message)
     {
+        $message = strip_tags($message);
+        $message = preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', "\n", $message);
+        $message =  preg_replace('/[ \t]+/', ' ', $message);
         $this->message = $message;
     }
 
