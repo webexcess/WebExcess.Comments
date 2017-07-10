@@ -9,6 +9,13 @@ prototype(WebExcess.Comments:CommentReplyButton) < prototype(Neos.Fusion:Tag) {
         data-identifier = ${commentData.identifier}
     }
     content = 'reply'
+
+    @context {
+        allowAccount = ${Security.getAccount() && Configuration.setting('WebExcess.Comments.allowCommenting.account') ? true : false}
+        allowGuest = ${Security.getAccount() == null && Configuration.setting('WebExcess.Comments.allowCommenting.guest') ? true : false}
+    }
+
+    @if.isAllowed = ${allowAccount || allowGuest ? true : false}
 }
 
 prototype(WebExcess.Theme:SpecialPage) {

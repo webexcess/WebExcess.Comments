@@ -1,41 +1,43 @@
-<div class="webexcess-comment-form">
-    <f:flashMessages as="flashMessages">
-        <f:for each="{flashMessages}" as="flashMessage">
-            <div class="alert alert-{f:if(condition: '{flashMessage.severity}==OK', then: 'success', else: 'danger')}" role="alert">
-                <p class="mb-0"><f:translate id="comment.form.flashMessage.{flashMessage.code}" package="WebExcess.Comments">{flashMessage.message}</f:translate></p>
-            </div>
-        </f:for>
-    </f:flashMessages>
-
-    <f:form action="create" name="comment" id="comment-form" object="{comment}">
-        <f:if condition="{isLoggedIn}">
-            <f:then>
-                <h4><f:translate id="comment.form.loggedin" arguments="{0: comment.firstname, 1: comment.lastname}" /></h4>
-                <f:render partial="HiddenField" arguments="{fieldname: 'firstname'}" />
-                <f:render partial="HiddenField" arguments="{fieldname: 'lastname'}" />
-                <f:render partial="HiddenField" arguments="{fieldname: 'email'}" />
-                <f:render partial="HiddenField" arguments="{fieldname: 'account'}" />
-            </f:then>
-            <f:else>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <f:render partial="TextField" arguments="{fieldname: 'firstname', required: true}" />
-                    </div>
-                    <div class="col-sm-4">
-                        <f:render partial="TextField" arguments="{fieldname: 'lastname', required: true}" />
-                    </div>
-                    <div class="col-sm-4">
-                        <f:render partial="TextField" arguments="{fieldname: 'email', required: true, type: 'email'}" />
-                    </div>
+<f:if condition="{allowCommenting}">
+    <div class="webexcess-comment-form">
+        <f:flashMessages as="flashMessages">
+            <f:for each="{flashMessages}" as="flashMessage">
+                <div class="alert alert-{f:if(condition: '{flashMessage.severity}==OK', then: 'success', else: 'danger')}" role="alert">
+                    <p class="mb-0"><f:translate id="comment.form.flashMessage.{flashMessage.code}" package="WebExcess.Comments">{flashMessage.message}</f:translate></p>
                 </div>
-            </f:else>
-        </f:if>
+            </f:for>
+        </f:flashMessages>
 
-        <f:render partial="TextArea" arguments="{fieldname: 'message', required: true}" />
-        <f:render partial="Checkbox" arguments="{fieldname: 'notify'}" />
+        <f:form action="create" name="comment" id="comment-form" object="{comment}">
+            <f:if condition="{isLoggedIn}">
+                <f:then>
+                    <h4><f:translate id="comment.form.loggedin" arguments="{0: comment.firstname, 1: comment.lastname}" /></h4>
+                    <f:render partial="HiddenField" arguments="{fieldname: 'firstname'}" />
+                    <f:render partial="HiddenField" arguments="{fieldname: 'lastname'}" />
+                    <f:render partial="HiddenField" arguments="{fieldname: 'email'}" />
+                    <f:render partial="HiddenField" arguments="{fieldname: 'account'}" />
+                </f:then>
+                <f:else>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <f:render partial="TextField" arguments="{fieldname: 'firstname', required: true}" />
+                        </div>
+                        <div class="col-sm-4">
+                            <f:render partial="TextField" arguments="{fieldname: 'lastname', required: true}" />
+                        </div>
+                        <div class="col-sm-4">
+                            <f:render partial="TextField" arguments="{fieldname: 'email', required: true, type: 'email'}" />
+                        </div>
+                    </div>
+                </f:else>
+            </f:if>
 
-        <f:render partial="HiddenField" arguments="{fieldname: 'reference'}" />
-        <f:comment><f:render partial="TextField" arguments="{fieldname: 'reference'}" /></f:comment>
-        <f:render partial="Submit" />
-    </f:form>
-</div>
+            <f:render partial="TextArea" arguments="{fieldname: 'message', required: true}" />
+            <f:render partial="Checkbox" arguments="{fieldname: 'notify'}" />
+
+            <f:render partial="HiddenField" arguments="{fieldname: 'reference'}" />
+            <f:comment><f:render partial="TextField" arguments="{fieldname: 'reference'}" /></f:comment>
+            <f:render partial="Submit" />
+        </f:form>
+    </div>
+</f:if>

@@ -66,9 +66,18 @@ class CommentsController extends ActionController
         $comment = new Comment();
         $isLoggedIn = $this->setAccountDataIfAuthenticated($comment);
 
+        $allowCommenting = false;
+        if ($isLoggedIn === true && $this->settings['allowCommenting']['account'] === true) {
+            $allowCommenting = true;
+        }
+        if ($isLoggedIn === false && $this->settings['allowCommenting']['guest'] === true) {
+            $allowCommenting = true;
+        }
+
         $this->view->assignMultiple(array(
             'comment' => $comment,
-            'isLoggedIn' => $isLoggedIn
+            'isLoggedIn' => $isLoggedIn,
+            'allowCommenting' => $allowCommenting
         ));
     }
 

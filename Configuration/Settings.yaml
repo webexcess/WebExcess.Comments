@@ -27,6 +27,9 @@ WebExcess:
   Comments:
     writeToDefaultDimension: false
     publishCommentsLive: true
+    allowCommenting:
+      account: true
+      guest: true
     enableReplies: true
     form:
       preset: 'Bootstrap' # WebExcess | Bootstrap | Foundation | Material | Float
