@@ -1,11 +1,15 @@
+'WebExcess.Comments:CommentsList.Mixin':
+  abstract: true
+  childNodes:
+    comments:
+      type: 'Neos.Neos:ContentCollection'
+
 'WebExcess.Comments:CommentsList':
   superTypes:
     'Neos.Neos:Content': true
+    'WebExcess.Comments:CommentsList.Mixin': true
   ui:
     label: i18n
     group: 'comments'
     icon: 'icon-comments'
     inlineEditable: false
-  childNodes:
-    comments:
-      type: 'Neos.Neos:ContentCollection'
