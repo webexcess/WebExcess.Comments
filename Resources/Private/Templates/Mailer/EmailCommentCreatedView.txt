@@ -1,0 +1,3 @@
+Hi {firstname},
+
+{comment.firstname} added a new comment to URL-{documentIdentifier}

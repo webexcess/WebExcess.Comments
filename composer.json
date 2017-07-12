@@ -4,7 +4,8 @@
   "type": "neos-package",
   "require": {
     "neos/neos": "*",
-    "flowpack/listable": "*"
+    "flowpack/listable": "*",
+    "neos/swiftmailer": "*"
   },
   "autoload": {
     "psr-4": {
