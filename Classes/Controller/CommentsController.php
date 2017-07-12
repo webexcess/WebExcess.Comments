@@ -163,22 +163,21 @@ class CommentsController extends ActionController
                 foreach ($authenticationTokens as $authenticationProviderName => $obj) {
                     $user = $this->userService->getUser($account->getAccountIdentifier(), $authenticationProviderName);
                     if ($user) {
+                        $emailAddress = '';
                         if ($user->getElectronicAddresses()->count() <= 0) {
                             if (filter_var($account->getAccountIdentifier(), FILTER_VALIDATE_EMAIL)) {
-                                $electronicAddress = new ElectronicAddress();
-                                $electronicAddress->setIdentifier($account->getAccountIdentifier());
-                                $user->setPrimaryElectronicAddress($electronicAddress);
-                            } else {
-                                throw new Exception('User "' . $account->getAccountIdentifier() . '" has no ElectronicAddress defined');
+                                $emailAddress = $account->getAccountIdentifier();
                             }
                         } else {
                             if (!$user->getPrimaryElectronicAddress()) {
-                                $user->setPrimaryElectronicAddress($user->getElectronicAddresses()->first());
+                                $emailAddress = $user->getElectronicAddresses()->first()->getIdentifier();
                             }
                         }
 
                         $isLoggedIn = true;
-                        $comment->setEmail($user->getPrimaryElectronicAddress()->getIdentifier());
+                        if (!empty($emailAddress)) {
+                            $comment->setEmail($emailAddress);
+                        }
                         $comment->setFirstname($user->getName()->getFirstName());
                         $comment->setLastname($user->getName()->getLastName());
                         $comment->setAccount($account->getAccountIdentifier());

@@ -14,7 +14,18 @@
                     <h4><f:translate id="comment.form.loggedin" arguments="{0: comment.firstname, 1: comment.lastname}" /></h4>
                     <f:render partial="HiddenField" arguments="{fieldname: 'firstname'}" />
                     <f:render partial="HiddenField" arguments="{fieldname: 'lastname'}" />
-                    <f:render partial="HiddenField" arguments="{fieldname: 'email'}" />
+                    <f:if condition="{comment.email}">
+                        <f:then>
+                            <f:render partial="HiddenField" arguments="{fieldname: 'email'}" />
+                        </f:then>
+                        <f:else>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <f:render partial="TextField" arguments="{fieldname: 'email', required: true, type: 'email'}" />
+                                </div>
+                            </div>
+                        </f:else>
+                    </f:if>
                     <f:render partial="HiddenField" arguments="{fieldname: 'account'}" />
                 </f:then>
                 <f:else>
