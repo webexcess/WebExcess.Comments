@@ -11,6 +11,7 @@ namespace WebExcess\Comments\Controller;
  * source code.
  */
 
+use Neos\ContentRepository\Domain\Model\Node;
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Mvc\Controller\ActionController;
 use Neos\ContentRepository\Domain\Model\NodeInterface;
@@ -133,6 +134,11 @@ class CommentsController extends ActionController
 
             $this->persistenceManager->persistAll();
             $this->flashMessageContainer->addMessage(new Message('Comment successfully added', 1499693207));
+
+            $this->emitCommentCreated($comment, $newCommentNode);
+//            $mailer = new \WebExcess\Comments\Service\Mailer();
+//            $mailer->sendCommentCreatedEmails($comment, $newCommentNode);
+
             $this->redirect('index');
         } else {
             throw new Exception('No "comments" ContentCollection found');
@@ -187,4 +193,12 @@ class CommentsController extends ActionController
         }
         return $isLoggedIn;
     }
+
+    /**
+     * @param Comment $comment
+     * @param Node $commentNode
+     * @return void
+     * @Flow\Signal
+     */
+    protected function emitCommentCreated(Comment $comment, Node $commentNode) {}
 }

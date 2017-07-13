@@ -1,0 +1,4 @@
+{namespace neos=Neos\Neos\ViewHelpers}
+Hi {firstname},
+
+{comment.firstname} added a new comment to {documentUri}
