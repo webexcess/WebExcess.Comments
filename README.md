@@ -1,6 +1,6 @@
 # WebExcess.Comments Package for Neos CMS
-[![Latest Stable Version](https://poser.pugx.org/webexcess/form/v/stable)](https://packagist.org/packages/webexcess/form)
-[![License](https://poser.pugx.org/webexcess/form/license)](https://packagist.org/packages/webexcess/form)
+[![Latest Stable Version](https://poser.pugx.org/webexcess/form/v/stable)](https://packagist.org/packages/webexcess/comments)
+[![License](https://poser.pugx.org/webexcess/form/license)](https://packagist.org/packages/webexcess/comments)
 
 This package provides your visitors the possibility to comment and discuss together.
 
