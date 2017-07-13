@@ -1,7 +1,27 @@
 {
     "name": "webexcess/comments",
-    "description": "",
+    "description": "This package provides your visitors the possibility to comment stuff and discuss together.",
     "type": "neos-package",
+    "license": "MIT",
+    "keywords": [
+        "flow",
+        "neos",
+        "comment"
+    ],
+    "authors": [
+        {
+            "name": "Stefan Bruggmann",
+            "email": "stefan.bruggmann@webexcess.ch",
+            "homepage": "https://twitter.com/webexcess",
+            "role": "Developer"
+        },
+        {
+            "name": "Samuel Hauser",
+            "email": "samuel.hauser@webexcess.ch",
+            "homepage": "https://github.com/samuelhauser",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "neos/neos": "*",
         "flowpack/listable": "~2.0.1",
