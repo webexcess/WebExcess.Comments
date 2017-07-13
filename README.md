@@ -53,7 +53,7 @@ composer require webexcess/comments
 
 ### Examples
 #### Extend Partials
-1. Create a Views.yaml file in the Configuration folder of your package
+1. Create a *Views.yaml* file in the *Configuration* folder of your package
 2. Paste the following code in this file
 
 ```yaml
