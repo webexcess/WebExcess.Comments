@@ -38,7 +38,7 @@ WebExcess:
     mailer:
       testMode: false
       commentCreatedView:
-        templatePathAndFilename: 'resource://WebExcess.Comments/Private/Templates/Mailer/EmailCommentCreatedView.html'
+        templatePathAndFilename: 'resource://WebExcess.Comments/Private/Templates/Mailer/EmailCommentCreatedView.txt'
         format: text # text | html
       fromAddress: 'info@domain.com'
       fromName: ''

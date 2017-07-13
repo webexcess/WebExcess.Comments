@@ -40,10 +40,10 @@
 				</trans-unit>
 			</group>
 
-            <trans-unit id="email.html.salutation" xml:space="preserve">
+            <trans-unit id="email.salutation" xml:space="preserve">
 				<source>Guten Tag {0},</source>
 			</trans-unit>
-			<trans-unit id="email.html.text" xml:space="preserve">
+			<trans-unit id="email.text" xml:space="preserve">
 				<source>{0} hat einen neuen Kommentar zu {1} hinzugefügt.</source>
 			</trans-unit>
 

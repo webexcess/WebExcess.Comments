@@ -2,6 +2,7 @@
   label: "${Date.format(node.properties.publishingDate, 'd.m.Y H:i') + ' ' + node.properties.firstname + ' ' + String.substr(node.properties.lastname, 0, 1) + '.'}"
   superTypes:
     'Neos.Neos:Content': true
+    'WebExcess.Comments:CommentsContentCollection': true
   ui:
     label: i18n
     group: 'comments'
@@ -12,9 +13,6 @@
         comment:
           label: i18n
           icon: 'icon-comment'
-  childNodes:
-    comments:
-      type: 'Neos.Neos:ContentCollection'
   properties:
     firstname:
       type: string
