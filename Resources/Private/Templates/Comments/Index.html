@@ -2,9 +2,11 @@
     <div class="webexcess-comment-form">
         <f:flashMessages as="flashMessages">
             <f:for each="{flashMessages}" as="flashMessage">
-                <div class="alert alert-{f:if(condition: '{flashMessage.severity}==OK', then: 'success', else: 'danger')}" role="alert">
-                    <p class="mb-0"><f:translate id="comment.form.flashMessage.{flashMessage.code}" package="WebExcess.Comments">{flashMessage.message}</f:translate></p>
-                </div>
+                <f:if condition="{flashMessage.code}">
+                    <div class="alert alert-{f:if(condition: '{flashMessage.severity}==OK', then: 'success', else: 'danger')}" role="alert">
+                        <p class="mb-0"><f:translate id="comment.form.flashMessage.{flashMessage.code}" package="WebExcess.Comments">{flashMessage.message} {flashMessage.code}</f:translate></p>
+                    </div>
+                </f:if>
             </f:for>
         </f:flashMessages>
 

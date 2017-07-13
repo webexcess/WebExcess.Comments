@@ -1,5 +1,5 @@
 <f:form.validationResults for="comment.{fieldname}">
-    <div class="form-group{f:if(condition: validationResults.flattenedErrors, then: ' mf-has-error')}">
+    <div class="form-group{f:if(condition: validationResults.flattenedErrors, then: ' has-danger')}">
         <label for="{fieldname}" class="form-control-label"><f:translate id="comment.form.{fieldname}" />{f:if(condition: required, then: '<sup class="is-required">*</sup>')}</label>
         <f:form.textarea property="{fieldname}" id="{fieldname}" rows="3" class="form-control" errorClass="form-control-danger" />
         <f:render partial="Validation" arguments="{fieldname: fieldname}" />
