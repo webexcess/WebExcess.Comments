@@ -1,4 +1,5 @@
 <?php
+
 namespace WebExcess\Comments\Controller;
 
 /*
@@ -136,8 +137,6 @@ class CommentsController extends ActionController
             $this->flashMessageContainer->addMessage(new Message('Comment successfully added', 1499693207));
 
             $this->emitCommentCreated($comment, $newCommentNode);
-//            $mailer = new \WebExcess\Comments\Service\Mailer();
-//            $mailer->sendCommentCreatedEmails($comment, $newCommentNode);
 
             $this->redirect('index');
         } else {
@@ -160,7 +159,8 @@ class CommentsController extends ActionController
      * @return bool
      * @throws Exception
      */
-    private function setAccountDataIfAuthenticated(Comment &$comment) {
+    private function setAccountDataIfAuthenticated(Comment &$comment)
+    {
         $isLoggedIn = false;
         $authenticationTokens = $this->securityContext->getAuthenticationTokens();
         if (!empty($authenticationTokens)) {
@@ -169,7 +169,7 @@ class CommentsController extends ActionController
                 foreach ($authenticationTokens as $authenticationProviderName => $obj) {
                     $user = $this->userService->getUser($account->getAccountIdentifier(), $authenticationProviderName);
                     if ($user) {
-                        $emailAddress = '';
+                        $emailAddress = null;
                         if ($user->getElectronicAddresses()->count() <= 0) {
                             if (filter_var($account->getAccountIdentifier(), FILTER_VALIDATE_EMAIL)) {
                                 $emailAddress = $account->getAccountIdentifier();
@@ -181,7 +181,7 @@ class CommentsController extends ActionController
                         }
 
                         $isLoggedIn = true;
-                        if (!empty($emailAddress)) {
+                        if ($emailAddress !== null) {
                             $comment->setEmail($emailAddress);
                         }
                         $comment->setFirstname($user->getName()->getFirstName());
@@ -200,5 +200,7 @@ class CommentsController extends ActionController
      * @return void
      * @Flow\Signal
      */
-    protected function emitCommentCreated(Comment $comment, Node $commentNode) {}
+    protected function emitCommentCreated(Comment $comment, Node $commentNode)
+    {
+    }
 }
