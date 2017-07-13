@@ -51,6 +51,19 @@ composer require webexcess/comments
 - Signals and Slots
   - The package sends the signal `commentCreated`. Read more about signal [here](http://flowframework.readthedocs.io/en/stable/TheDefinitiveGuide/PartIII/SignalsAndSlots.html).
 
+### Examples
+#### Extend Partials
+1. Create a Views.yaml file in the Configuration folder of your package
+2. Paste the following code in this file
+
+```yaml
+-
+  requestFilter: 'isPackage("WebExcess.Comments") && isController("Comments")'
+  options:
+    partialRootPaths: ['resource://Your.Package/Private/Partials/Comments']
+```
+
+3. Create only the partial files you want to change. The others are still used from package.
 
 ------------------------------------------
 
