@@ -1,4 +1,4 @@
-prototype(WebExcess.Comments:CommentImage) < prototype(Neos.Fusion:Tag) {
+prototype(WebExcess.Comments:Comment.Image) < prototype(Neos.Fusion:Tag) {
     attributes.class = Neos.Fusion:RawArray {
         comment = 'comment-image'
     }

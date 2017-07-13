@@ -1,4 +1,4 @@
-prototype(WebExcess.Comments:CommentReplyButton) < prototype(Neos.Fusion:Tag) {
+prototype(WebExcess.Comments:ReplyButton) < prototype(Neos.Fusion:Tag) {
     tagName = 'button'
     attributes {
         class = Neos.Fusion:RawArray {

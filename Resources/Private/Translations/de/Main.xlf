@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file original="" product-name="WebExcess.Comments" source-language="de" datatype="plaintext">
+        <body>
+			<trans-unit id="comment.form.loggedin" xml:space="preserve">
+				<source>Sie kommentieren als «{0} {1}»</source>
+			</trans-unit>
+            <trans-unit id="comment.form.firstname" xml:space="preserve">
+				<source>Vorname</source>
+			</trans-unit>
+            <trans-unit id="comment.form.lastname" xml:space="preserve">
+				<source>Nachname</source>
+			</trans-unit>
+            <trans-unit id="comment.form.email" xml:space="preserve">
+				<source>E-Mail</source>
+			</trans-unit>
+            <trans-unit id="comment.form.message" xml:space="preserve">
+				<source>Nachricht</source>
+			</trans-unit>
+            <trans-unit id="comment.form.notify" xml:space="preserve">
+				<source>Benachrichtigen Sie mich bei Änderungen</source>
+			</trans-unit>
+            <trans-unit id="comment.form.btn.submit" xml:space="preserve">
+				<source>Kommentieren</source>
+			</trans-unit>
+            <trans-unit id="comment.form.btn.reply" xml:space="preserve">
+				<source>Antworten</source>
+			</trans-unit>
+
+            <trans-unit id="comment.form.flashMessage.1499693207" xml:space="preserve">
+				<source>Vielen Dank! Ihr Kommentar wurde hinzugefügt.</source>
+			</trans-unit>
+
+			<group id="comment.list.title" restype="x-gettext-plurals">
+				<trans-unit id="comment.list.title[0]" xml:space="preserve">
+					<source>{0} Kommentar</source>
+				</trans-unit>
+				<trans-unit id="comment.list.title[1]" xml:space="preserve">
+					<source>{0} Kommentare</source>
+				</trans-unit>
+			</group>
+
+            <trans-unit id="email.html.salutation" xml:space="preserve">
+				<source>Guten Tag {0},</source>
+			</trans-unit>
+			<trans-unit id="email.html.text" xml:space="preserve">
+				<source>{0} hat einen neuen Kommentar zu {1} hinzugefügt.</source>
+			</trans-unit>
+
+            <trans-unit id="nodeTypes.groups.comments" xml:space="preserve">
+				<source>Kommentare</source>
+			</trans-unit>
+        </body>
+    </file>
+</xliff>

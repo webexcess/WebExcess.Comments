@@ -1,0 +1,26 @@
+prototype(WebExcess.Comments:List) < prototype(Neos.Fusion:Tag) {
+    attributes.class = Neos.Fusion:RawArray {
+        list = 'webexcess-comment-list'
+    }
+    content = Neos.Fusion:Array {
+        commentNodes = ${q(node).children('comments').children('[instanceof WebExcess.Comments:Comment]')}
+        @ignoreProperties = ${['commentNodes']}
+        @context {
+            commentNodes = ${this.commentNodes}
+            commentsCount = ${this.commentNodes.count()}
+        }
+
+        head = WebExcess.Comments:ListHeader
+        list = Neos.Neos:ContentCollection {
+            attributes.class = Neos.Fusion:RawArray {
+                comments = 'comment-list'
+            }
+            nodePath = 'comments'
+            content = Neos.Fusion:Collection {
+                collection = ${commentNodes.sort('publishingDate', 'DESC').get()}
+                itemName = 'node'
+                itemRenderer = WebExcess.Comments:Comment
+            }
+        }
+    }
+}

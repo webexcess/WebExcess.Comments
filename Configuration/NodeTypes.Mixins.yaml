@@ -1,0 +1,26 @@
+'WebExcess.Comments:CommentsContentCollection':
+  abstract: true
+  childNodes:
+    comments:
+      type: 'Neos.Neos:ContentCollection'
+      constraints:
+        nodeTypes:
+          'WebExcess.Comments:Comment': true
+
+'WebExcess.Comments:HideFormMixin':
+  abstract: true
+  ui:
+    inspector:
+      groups:
+        settings:
+          label: i18n
+          tab: default
+  properties:
+    hideForm:
+      type: boolean
+      defaultValue: false
+      ui:
+        label: i18n
+        reloadIfChanged: true
+        inspector:
+          group: settings

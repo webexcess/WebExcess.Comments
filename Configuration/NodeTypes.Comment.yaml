@@ -74,3 +74,8 @@
             format: 'd.m.Y H:i'
     account:
       type: string
+
+'Neos.Neos:ContentCollection':
+  constraints:
+    nodeTypes:
+      'WebExcess.Comments:Comment': false

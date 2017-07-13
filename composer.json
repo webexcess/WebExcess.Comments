@@ -1,21 +1,21 @@
 {
-  "name": "webexcess/comments",
-  "description": "",
-  "type": "neos-package",
-  "require": {
-    "neos/neos": "*",
-    "flowpack/listable": "~2.0.1",
-    "neos/swiftmailer": "~6.0.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "WebExcess\\Comments\\": "Classes/"
+    "name": "webexcess/comments",
+    "description": "",
+    "type": "neos-package",
+    "require": {
+        "neos/neos": "*",
+        "flowpack/listable": "~2.0.1",
+        "neos/swiftmailer": "~6.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "WebExcess\\Comments\\": "Classes/"
+        }
+    },
+    "extra": {
+        "installer-name": "WebExcess.Comments",
+        "neos": {
+            "package-key": "WebExcess.Comments"
+        }
     }
-  },
-  "extra": {
-    "installer-name": "WebExcess.Comments",
-    "neos": {
-      "package-key": "WebExcess.Comments"
-    }
-  }
 }

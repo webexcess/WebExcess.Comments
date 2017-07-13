@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file original="" product-name="WebExcess.Comments" source-language="de" datatype="plaintext">
+		<body>
+			<trans-unit id="ui.label" xml:space="preserve">
+				<source>Kommentar</source>
+			</trans-unit>
+
+            <trans-unit id="groups.comment" xml:space="preserve">
+				<source>Kommentar</source>
+			</trans-unit>
+
+            <trans-unit id="properties.firstname" xml:space="preserve">
+				<source>Vorname</source>
+			</trans-unit>
+            <trans-unit id="properties.lastname" xml:space="preserve">
+				<source>Nachname</source>
+			</trans-unit>
+            <trans-unit id="properties.email" xml:space="preserve">
+				<source>E-Mail</source>
+			</trans-unit>
+            <trans-unit id="properties.message" xml:space="preserve">
+				<source>Nachricht</source>
+			</trans-unit>
+            <trans-unit id="properties.notify" xml:space="preserve">
+				<source>Benachrichtigung bei Änderungen</source>
+			</trans-unit>
+            <trans-unit id="properties.publishingDate" xml:space="preserve">
+				<source>veröffentlichungsdatum</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

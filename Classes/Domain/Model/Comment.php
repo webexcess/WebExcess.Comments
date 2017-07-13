@@ -1,4 +1,5 @@
 <?php
+
 namespace WebExcess\Comments\Domain\Model;
 
 /*
@@ -71,7 +72,7 @@ class Comment
     {
         $firstname = strip_tags($firstname);
         $firstname = preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', ' ', $firstname);
-        $firstname =  preg_replace('/[ \t]+/', ' ', $firstname);
+        $firstname = preg_replace('/[ \t]+/', ' ', $firstname);
         $this->firstname = $firstname;
     }
 
@@ -90,7 +91,7 @@ class Comment
     {
         $lastname = strip_tags($lastname);
         $lastname = preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', ' ', $lastname);
-        $lastname =  preg_replace('/[ \t]+/', ' ', $lastname);
+        $lastname = preg_replace('/[ \t]+/', ' ', $lastname);
         $this->lastname = $lastname;
     }
 
@@ -125,7 +126,7 @@ class Comment
     {
         $message = strip_tags($message);
         $message = preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', "\n", $message);
-        $message =  preg_replace('/[ \t]+/', ' ', $message);
+        $message = preg_replace('/[ \t]+/', ' ', $message);
         $this->message = $message;
     }
 

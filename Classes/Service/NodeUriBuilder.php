@@ -1,4 +1,5 @@
 <?php
+
 namespace WebExcess\Comments\Service;
 
 /*
@@ -45,10 +46,10 @@ class NodeUriBuilder
      *
      * @param ConfigurationManager $configurationManager
      */
-    public function injectUriBuilder(ConfigurationManager $configurationManager) {
+    public function injectUriBuilder(ConfigurationManager $configurationManager)
+    {
         $_SERVER['FLOW_REWRITEURLS'] = 1;
         $httpRequest = Request::createFromEnvironment();
-//        $httpRequest->setBaseUri(new Uri($this->baseDomain));
         $request = new ActionRequest($httpRequest);
         $uriBuilder = new RealUriBuilder();
         $uriBuilder->setRequest($request);
@@ -63,7 +64,8 @@ class NodeUriBuilder
      * @return string The URL of the node
      * @throws \Neos\Neos\Exception
      */
-    public function getUriToNode(NodeInterface $node) {
+    public function getUriToNode(NodeInterface $node)
+    {
         $uri = $this->linkingService->createNodeUri(
             new ControllerContext(
                 $this->uriBuilder->getRequest(),

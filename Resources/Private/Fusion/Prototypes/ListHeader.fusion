@@ -1,0 +1,7 @@
+prototype(WebExcess.Comments:ListHeader) < prototype(Neos.Fusion:Tag) {
+    tagName = 'h3'
+    attributes.class = Neos.Fusion:RawArray {
+        header = 'comments-header'
+    }
+    content = ${Translation.translate('comment.list.title', '', [commentsCount], 'Main', 'WebExcess.Comments', commentsCount)}
+}

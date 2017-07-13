@@ -27,6 +27,7 @@ use Neos\Party\Domain\Model\ElectronicAddress;
 use WebExcess\Comments\Domain\Model\Comment;
 use Neos\Neos\Exception;
 use Neos\Error\Messages\Message;
+use WebExcess\Comments\Service\NodeUriBuilder;
 
 class CommentsController extends ActionController
 {
@@ -54,6 +55,13 @@ class CommentsController extends ActionController
      * @var UserService
      */
     protected $userService;
+
+
+    /**
+     * @Flow\Inject()
+     * @var NodeUriBuilder
+     */
+    protected $nodeUriBuilder;
 
     /**
      * @Flow\Inject
@@ -108,7 +116,7 @@ class CommentsController extends ActionController
         }
 
         /** @var NodeInterface $commentsCollection */
-        $commentsCollection = $q->find('[instanceof WebExcess.Comments:CommentsList]')->children('comments')->context(['workspaceName' => 'live', 'dimensions' => $dimensions, 'targetDimensions' => $targetDimension])->get(0);
+        $commentsCollection = $q->find('[instanceof WebExcess.Comments:Content]')->children('comments')->context(['workspaceName' => 'live', 'dimensions' => $dimensions, 'targetDimensions' => $targetDimension])->get(0);
         if ($comment->getReference() != '') {
             $commentsCollection = $q->find('#' . $comment->getReference())->children('comments')->context(['workspaceName' => 'live', 'dimensions' => $dimensions, 'targetDimensions' => $targetDimension])->get(0);
         }
@@ -137,8 +145,7 @@ class CommentsController extends ActionController
             $this->flashMessageContainer->addMessage(new Message('Comment successfully added', 1499693207));
 
             $this->emitCommentCreated($comment, $newCommentNode);
-
-            $this->redirect('index');
+            $this->redirectToUri($this->nodeUriBuilder->getUriToNode($documentNode));
         } else {
             throw new Exception('No "comments" ContentCollection found');
         }

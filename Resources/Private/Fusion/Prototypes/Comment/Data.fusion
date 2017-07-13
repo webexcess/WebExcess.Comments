@@ -1,4 +1,4 @@
-prototype(WebExcess.Comments:CommentData) < prototype(Neos.Fusion:RawArray) {
+prototype(WebExcess.Comments:Comment.Data) < prototype(Neos.Fusion:RawArray) {
     identifier = ${node.identifier}
 
     firstname = ${q(node).property('firstname')}

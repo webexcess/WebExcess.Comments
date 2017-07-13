@@ -1,5 +1,5 @@
 prototype(WebExcess.Comments:Comment) < prototype(Neos.Fusion:Tag) {
-    commentData = WebExcess.Comments:CommentData
+    commentData = WebExcess.Comments:Comment.Data
     replyDepth = 0
     @context {
         commentData = ${this.commentData}
@@ -17,8 +17,8 @@ prototype(WebExcess.Comments:Comment) < prototype(Neos.Fusion:Tag) {
             }
 
             content = Neos.Fusion:Array {
-                image = WebExcess.Comments:CommentImage
-                content = WebExcess.Comments:CommentContent
+                image = WebExcess.Comments:Comment.Image
+                content = WebExcess.Comments:Comment.Content
             }
         }
 
@@ -31,7 +31,7 @@ prototype(WebExcess.Comments:Comment) < prototype(Neos.Fusion:Tag) {
                     attributes.class = Neos.Fusion:RawArray {
                         action = 'comment-replies-action'
                     }
-                    content = WebExcess.Comments:CommentReplyButton
+                    content = WebExcess.Comments:ReplyButton
                 }
 
                 replies = Neos.Fusion:Tag {

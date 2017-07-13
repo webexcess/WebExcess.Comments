@@ -1,0 +1,10 @@
+prototype(WebExcess.Comments:Comment.Content) < prototype(Neos.Fusion:Tag) {
+    attributes.class = Neos.Fusion:RawArray {
+        comment = 'comment-content'
+    }
+
+    content = Neos.Fusion:Array {
+        head = WebExcess.Comments:Comment.Header
+        message = WebExcess.Comments:Comment.Message
+    }
+}

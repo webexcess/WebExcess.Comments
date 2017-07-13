@@ -1,4 +1,4 @@
-prototype(WebExcess.Comments:CommentMessage) < prototype(Neos.Fusion:Tag) {
+prototype(WebExcess.Comments:Comment.Message) < prototype(Neos.Fusion:Tag) {
     attributes.class = Neos.Fusion:RawArray {
         body = 'comment-message'
     }

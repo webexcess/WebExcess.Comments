@@ -31,6 +31,15 @@
 				<source>Tank you! Comment successfully added.</source>
 			</trans-unit>
 
+			<group id="comment.list.title" restype="x-gettext-plurals">
+				<trans-unit id="comment.list.title[0]" xml:space="preserve">
+					<source>{0} Comment</source>
+				</trans-unit>
+				<trans-unit id="comment.list.title[1]" xml:space="preserve">
+					<source>{0} Comments</source>
+				</trans-unit>
+			</group>
+
             <trans-unit id="email.html.salutation" xml:space="preserve">
 				<source>Hi {0},</source>
 			</trans-unit>

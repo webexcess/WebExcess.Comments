@@ -9,7 +9,7 @@ prototype(Neos.Neos:Page) {
             media = 'all'
         }
         @position = 'end'
-//        @if.isEnabled = ${Configuration.setting('Dotpulse.Accordion.includeJavascript')}
+        @if.isEnabled = ${Configuration.setting('WebExcess.Comments.includeCSS')}
     }
 
     body.javascripts.reply = Neos.Fusion:Tag {
@@ -18,6 +18,6 @@ prototype(Neos.Neos:Page) {
             path = 'resource://WebExcess.Comments/Public/Main.js'
         }
         @position = 'end'
-//        @if.isEnabled = ${Configuration.setting('Dotpulse.Accordion.includeJavascript')}
+        @if.isEnabled = ${Configuration.setting('WebExcess.Comments.includeJavascript')}
     }
 }

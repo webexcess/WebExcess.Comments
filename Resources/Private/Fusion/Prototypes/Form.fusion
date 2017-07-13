@@ -1,0 +1,8 @@
+prototype(WebExcess.Comments:Form) < prototype(Neos.Neos:Plugin) {
+    package = 'WebExcess.Comments'
+    controller = 'Comments'
+    action = 'index'
+    argumentNamespace = 'webexcess_comments-form'
+
+    @if.formIsNotHidden = ${!q(node).property('hideForm')}
+}

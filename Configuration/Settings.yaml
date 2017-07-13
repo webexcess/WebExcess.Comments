@@ -25,6 +25,8 @@ Neos:
 
 WebExcess:
   Comments:
+    includeCSS: true
+    includeJavascript: true
     writeToDefaultDimension: false
     publishCommentsLive: true
     allowCommenting:

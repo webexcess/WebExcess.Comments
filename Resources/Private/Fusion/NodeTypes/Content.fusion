@@ -1,0 +1,16 @@
+prototype(WebExcess.Comments:Content) < prototype(Neos.Fusion:Tag) {
+    attributes.class = Neos.Fusion:RawArray {
+        list = 'webexcess-comments'
+    }
+    content = Neos.Fusion:Array {
+        form = WebExcess.Comments:Form
+        list = WebExcess.Comments:List
+    }
+
+    @process.contentElementWrapping {
+        expression = Neos.Neos:ContentElementWrapping
+        @position = 'end 999999999'
+    }
+
+    @exceptionHandler = 'Neos\\Neos\\Fusion\\ExceptionHandlers\\NodeWrappingHandler'
+}

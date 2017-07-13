@@ -1,4 +1,4 @@
-prototype(WebExcess.Comments:CommentDate) < prototype(Neos.Fusion:Tag) {
+prototype(WebExcess.Comments:Comment.HeaderDate) < prototype(Neos.Fusion:Tag) {
     dateFormat = ${dateFormat ? dateFormat : 'd.m.Y H:i'}
     @context.dateFormat = ${this.dateFormat}
 
