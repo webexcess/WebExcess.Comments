@@ -1,7 +1,7 @@
 {
     "name": "webexcess/comments",
     "description": "This package provides your visitors the possibility to comment stuff and discuss together.",
-    "type": "neos-package",
+    "type": "neos-plugin",
     "license": "MIT",
     "keywords": [
         "flow",
