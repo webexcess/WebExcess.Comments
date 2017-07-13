@@ -44,7 +44,7 @@ composer require webexcess/comments
   - Manipulating the comment listing,
   - User presentation,
   - etc.
-- Form Template
+- [Form Template](#form-template)
   - Change the Form markup with a [Views.yaml](http://flowframework.readthedocs.io/en/stable/TheDefinitiveGuide/PartIII/ModelViewController.html#configuring-views-through-views-yaml) entry
 - Email Template
   - Change the Email format and template in the packages settings
@@ -52,7 +52,7 @@ composer require webexcess/comments
   - The package sends the signal `commentCreated`. Read more about signal [here](http://flowframework.readthedocs.io/en/stable/TheDefinitiveGuide/PartIII/SignalsAndSlots.html).
 
 ### Examples
-#### Extend Partials
+(####Form-Template)
 1. Create a *Views.yaml* file in the *Configuration* folder of your package
 2. Paste the following code in this file
 
