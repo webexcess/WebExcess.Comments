@@ -36,10 +36,11 @@ WebExcess:
     mailer:
       testMode: false
       commentCreatedView:
-        templatePathAndFilename: 'resource://WebExcess.Comments/Private/Templates/Mailer/EmailCommentCreatedView.txt'
+        templatePathAndFilename: 'resource://WebExcess.Comments/Private/Templates/Mailer/EmailCommentCreatedView.html'
         format: text # text | html
       fromAddress: 'info@domain.com'
       fromName: ''
       replyToAddress: 'noreply@domain.com'
       carbonCopyAddress: ''
       blindCarbonCopyAddress: ''
+      subject: 'Comment added'

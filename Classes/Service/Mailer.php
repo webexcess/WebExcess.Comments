@@ -1,4 +1,5 @@
 <?php
+
 namespace WebExcess\Comments\Service;
 
 /*
@@ -11,13 +12,13 @@ namespace WebExcess\Comments\Service;
  * source code.
  */
 
+use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\Flow\Annotations as Flow;
 use Neos\Form\Exception\FinisherException;
 use Neos\FluidAdaptor\View\StandaloneView;
 use Neos\SwiftMailer;
 use WebExcess\Comments\Domain\Model\Comment;
 use Neos\Eel\FlowQuery\FlowQuery;
-use Neos\ContentRepository\Domain\Model\Node;
 use Neos\Flow\Log\SystemLoggerInterface;
 
 /**
@@ -26,8 +27,8 @@ use Neos\Flow\Log\SystemLoggerInterface;
 class Mailer
 {
     /**
-     * @Flow\InjectConfiguration(package="WebExcess.Comments")
-     * @var string
+     * @Flow\InjectConfiguration(path="mailer", package="WebExcess.Comments")
+     * @var array
      */
     protected $settings;
 
@@ -45,13 +46,13 @@ class Mailer
 
     /**
      * @param Comment $comment
-     * @param Node $commentNode
+     * @param NodeInterface $commentNode
      */
-    public function sendCommentCreatedEmails(Comment $comment, Node $commentNode)
+    public function sendCommentCreatedEmails(Comment $comment, NodeInterface $commentNode)
     {
         $q = new FlowQuery(array($commentNode));
 
-        /** @var Node $documentNode */
+        /** @var NodeInterface $documentNode */
         $documentNode = $q->closest('[instanceof Neos.Neos:Document]')->get(0);
 
         $threadNodes = $q->parent()->parent()->find('[instanceof WebExcess.Comments:Comment]')->get();
@@ -72,11 +73,11 @@ class Mailer
 
     /**
      * @param Comment $comment
-     * @param Node $commentNode
-     * @param Node $recipientNode
-     * @param Node $documentNode
+     * @param NodeInterface $commentNode
+     * @param NodeInterface $recipientNode
+     * @param NodeInterface $documentNode
      */
-    private function sendCommentCreatedEmail(Comment &$comment, Node &$commentNode, Node &$recipientNode, Node &$documentNode)
+    private function sendCommentCreatedEmail(Comment &$comment, NodeInterface &$commentNode, NodeInterface &$recipientNode, NodeInterface &$documentNode)
     {
         $standaloneView = $this->initializeStandaloneView('commentCreatedView');
         $standaloneView->assign('documentIdentifier', $documentNode->getIdentifier());
@@ -86,13 +87,13 @@ class Mailer
         $standaloneView->assign('lastname', $recipientNode->getProperty('lastname'));
         $message = $standaloneView->render();
 
-        $fromAddress = $this->settings['mailer']['fromAddress'];
-        $fromName = !empty($this->settings['mailer']['fromName']) ? $this->settings['mailer']['fromName'] : $fromAddress;
-        $replyToAddress = $this->settings['mailer']['replyToAddress'];
-        $carbonCopyAddress = $this->settings['mailer']['carbonCopyAddress'];
-        $blindCarbonCopyAddress = $this->settings['mailer']['blindCarbonCopyAddress'];
+        $fromAddress = $this->settings['fromAddress'];
+        $fromName = !empty($this->settings['fromName']) ? $this->settings['fromName'] : $fromAddress;
+        $replyToAddress = $this->settings['replyToAddress'];
+        $carbonCopyAddress = $this->settings['carbonCopyAddress'];
+        $blindCarbonCopyAddress = $this->settings['blindCarbonCopyAddress'];
 
-        $subject = '';
+        $subject = $this->settings['subject'];
         $recipientAddress = $recipientNode->getProperty('email');
         $recipientName = $recipientNode->getProperty('firstname') . ' ' . $recipientNode->getProperty('lastname');
 
@@ -111,13 +112,13 @@ class Mailer
             $mail->setBcc($blindCarbonCopyAddress);
         }
 
-        if ($this->settings['mailer']['commentCreatedView']['format'] == 'html') {
+        if ($this->settings['commentCreatedView']['format'] == 'html') {
             $mail->setBody($message, 'text/html');
         } else {
             $mail->setBody($message, 'text/plain');
         }
 
-        if ($this->settings['mailer']['testMode']) {
+        if ($this->settings['testMode']) {
             $this->logger->log(sprintf('CommentCreatedEmail to %s (%s) sent.', $recipientAddress, $recipientName), LOG_INFO, array('message' => $message));
         } else {
             $mail->send();
@@ -132,21 +133,21 @@ class Mailer
     protected function initializeStandaloneView($view)
     {
         $standaloneView = new StandaloneView();
-        if (!isset($this->settings['mailer'][$view]['templatePathAndFilename'])) {
+        if (!isset($this->settings[$view]['templatePathAndFilename'])) {
             throw new FinisherException('The setting "templatePathAndFilename" must be set.');
         }
-        $standaloneView->setTemplatePathAndFilename($this->settings['mailer'][$view]['templatePathAndFilename']);
+        $standaloneView->setTemplatePathAndFilename($this->settings[$view]['templatePathAndFilename']);
 
-        if (isset($this->settings['mailer'][$view]['partialRootPath'])) {
-            $standaloneView->setPartialRootPath($this->settings['mailer'][$view]['partialRootPath']);
+        if (isset($this->settings[$view]['partialRootPath'])) {
+            $standaloneView->setPartialRootPath($this->settings[$view]['partialRootPath']);
         }
 
-        if (isset($this->settings['mailer'][$view]['layoutRootPath'])) {
-            $standaloneView->setLayoutRootPath($this->settings['mailer'][$view]['layoutRootPath']);
+        if (isset($this->settings[$view]['layoutRootPath'])) {
+            $standaloneView->setLayoutRootPath($this->settings[$view]['layoutRootPath']);
         }
 
-        if (isset($this->settings['mailer'][$view]['variables'])) {
-            $standaloneView->assignMultiple($this->settings['mailer'][$view]['variables']);
+        if (isset($this->settings[$view]['variables'])) {
+            $standaloneView->assignMultiple($this->settings[$view]['variables']);
         }
 
         return $standaloneView;

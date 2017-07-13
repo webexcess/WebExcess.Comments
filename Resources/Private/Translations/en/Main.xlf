@@ -31,6 +31,13 @@
 				<source>Tank you! Comment successfully added.</source>
 			</trans-unit>
 
+            <trans-unit id="email.html.salutation" xml:space="preserve">
+				<source>Hi {0},</source>
+			</trans-unit>
+			<trans-unit id="email.html.text" xml:space="preserve">
+				<source>{0} added a new comment to {1}</source>
+			</trans-unit>
+
             <trans-unit id="nodeTypes.groups.comments" xml:space="preserve">
 				<source>Comments</source>
 			</trans-unit>
