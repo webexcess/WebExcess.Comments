@@ -52,7 +52,7 @@ composer require webexcess/comments
   - The package sends the signal `commentCreated`. Read more about signal [here](http://flowframework.readthedocs.io/en/stable/TheDefinitiveGuide/PartIII/SignalsAndSlots.html).
 
 ### Examples
-(####Form-Template)
+####Form-Template{#form-template}
 1. Create a *Views.yaml* file in the *Configuration* folder of your package
 2. Paste the following code in this file
 
