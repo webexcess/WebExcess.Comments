@@ -135,10 +135,9 @@ class CommentsController extends ActionController
             $this->persistenceManager->persistAll();
             $this->flashMessageContainer->addMessage(new Message('Comment successfully added', 1499693207));
 
-//            @todo use signal
-//            $this->emitCommentCreated($comment, $newCommentNode);
-            $mailer = new \WebExcess\Comments\Service\Mailer();
-            $mailer->sendCommentCreatedEmails($comment, $newCommentNode);
+            $this->emitCommentCreated($comment, $newCommentNode);
+//            $mailer = new \WebExcess\Comments\Service\Mailer();
+//            $mailer->sendCommentCreatedEmails($comment, $newCommentNode);
 
             $this->redirect('index');
         } else {

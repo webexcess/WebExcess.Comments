@@ -34,9 +34,10 @@ WebExcess:
     form:
       preset: 'Bootstrap' # WebExcess | Bootstrap | Foundation | Material | Float
     mailer:
-      testMode: true
+      testMode: false
       commentCreatedView:
         templatePathAndFilename: 'resource://WebExcess.Comments/Private/Templates/Mailer/EmailCommentCreatedView.txt'
+        format: text # text | html
       fromAddress: 'info@domain.com'
       fromName: ''
       replyToAddress: 'noreply@domain.com'

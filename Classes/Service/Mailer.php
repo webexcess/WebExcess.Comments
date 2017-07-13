@@ -12,14 +12,13 @@ namespace WebExcess\Comments\Service;
  */
 
 use Neos\Flow\Annotations as Flow;
-use Neos\Form\Core\Model\AbstractFinisher;
 use Neos\Form\Exception\FinisherException;
 use Neos\FluidAdaptor\View\StandaloneView;
 use Neos\SwiftMailer;
-use Neos\ContentRepository\Domain\Model\NodeInterface;
 use WebExcess\Comments\Domain\Model\Comment;
 use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\ContentRepository\Domain\Model\Node;
+use Neos\Flow\Log\SystemLoggerInterface;
 
 /**
  * @Flow\Scope("singleton")
@@ -32,20 +31,17 @@ class Mailer
      */
     protected $settings;
 
-    const FORMAT_PLAINTEXT = 'plaintext';
-    const FORMAT_HTML = 'html';
+    /**
+     * @Flow\Inject()
+     * @var NodeUriBuilder
+     */
+    protected $uriBuilder;
 
     /**
-     * @var array
+     * @var SystemLoggerInterface
+     * @Flow\Inject
      */
-    protected $defaultOptions = array(
-        'recipientName' => '',
-        'senderName' => '',
-        'excludeFields' => array(),
-        'format' => self::FORMAT_HTML,
-        'testMode' => false,
-        'debugMessage' => false,
-    );
+    protected $logger;
 
     /**
      * @param Comment $comment
@@ -56,38 +52,38 @@ class Mailer
         $q = new FlowQuery(array($commentNode));
 
         /** @var Node $documentNode */
-        // @todo parentsUntil is not working now..
-        $documentNode = $q->parentsUntil('[instanceof Neos.Neos:Document]')->parent()->get(0);
+        $documentNode = $q->closest('[instanceof Neos.Neos:Document]')->get(0);
 
-        /** @var Node $parentNode */
-        $parentNode = $q->parent()->parent();
-        $threadNodes = $parentNode->find('[instanceof WebExcess.Comments:Comment]')->get();
-        $receptionNodes = array();
+        $threadNodes = $q->parent()->parent()->find('[instanceof WebExcess.Comments:Comment]')->get();
+        if ($q->parent()->parent()->is('[instanceof WebExcess.Comments:Comment]')) {
+            $threadNodes[] = $q->parent()->parent()->get(0);
+        }
+        $recipientNodes = array();
         foreach ($threadNodes as $threadNode) {
             if ($threadNode->getProperty('notify') && $threadNode->getProperty('email') != $commentNode->getProperty('email')) {
-                $receptionNodes[sha1($threadNode->getProperty('email'))] = $threadNode;
+                $recipientNodes[sha1($threadNode->getProperty('email'))] = $threadNode;
             }
         }
 
-        foreach ($receptionNodes as $receptionNode) {
-            $this->sendCommentCreatedEmail($comment, $commentNode, $receptionNode, $documentNode);
+        foreach ($recipientNodes as $recipientNode) {
+            $this->sendCommentCreatedEmail($comment, $commentNode, $recipientNode, $documentNode);
         }
-        exit();
     }
 
     /**
      * @param Comment $comment
      * @param Node $commentNode
-     * @param Node $receptionNode
+     * @param Node $recipientNode
      * @param Node $documentNode
      */
-    private function sendCommentCreatedEmail(Comment &$comment, Node &$commentNode, Node &$receptionNode, Node &$documentNode)
+    private function sendCommentCreatedEmail(Comment &$comment, Node &$commentNode, Node &$recipientNode, Node &$documentNode)
     {
         $standaloneView = $this->initializeStandaloneView('commentCreatedView');
         $standaloneView->assign('documentIdentifier', $documentNode->getIdentifier());
+        $standaloneView->assign('documentUri', $this->uriBuilder->getUriToNode($documentNode));
         $standaloneView->assign('comment', $comment);
-        $standaloneView->assign('firstname', $receptionNode->getProperty('firstname'));
-        $standaloneView->assign('lastname', $receptionNode->getProperty('lastname'));
+        $standaloneView->assign('firstname', $recipientNode->getProperty('firstname'));
+        $standaloneView->assign('lastname', $recipientNode->getProperty('lastname'));
         $message = $standaloneView->render();
 
         $fromAddress = $this->settings['mailer']['fromAddress'];
@@ -97,8 +93,8 @@ class Mailer
         $blindCarbonCopyAddress = $this->settings['mailer']['blindCarbonCopyAddress'];
 
         $subject = '';
-        $recipientAddress = $receptionNode->getProperty('email');
-        $recipientName = $receptionNode->getProperty('firstname') . ' ' . $receptionNode->getProperty('lastname');
+        $recipientAddress = $recipientNode->getProperty('email');
+        $recipientName = $recipientNode->getProperty('firstname') . ' ' . $recipientNode->getProperty('lastname');
 
         $mail = new SwiftMailer\Message();
         $mail->setFrom(array($fromAddress => $fromName))
@@ -115,11 +111,17 @@ class Mailer
             $mail->setBcc($blindCarbonCopyAddress);
         }
 
-        $mail->setBody($message, 'text/plain');
+        if ($this->settings['mailer']['commentCreatedView']['format'] == 'html') {
+            $mail->setBody($message, 'text/html');
+        } else {
+            $mail->setBody($message, 'text/plain');
+        }
 
-        \Neos\Flow\var_dump($message);
-        return;
-        $mail->send();
+        if ($this->settings['mailer']['testMode']) {
+            $this->logger->log(sprintf('CommentCreatedEmail to %s (%s) sent.', $recipientAddress, $recipientName), LOG_INFO, array('message' => $message));
+        } else {
+            $mail->send();
+        }
     }
 
     /**
