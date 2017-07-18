@@ -182,7 +182,9 @@ class CommentsController extends ActionController
                                 $emailAddress = $account->getAccountIdentifier();
                             }
                         } else {
-                            if (!$user->getPrimaryElectronicAddress()) {
+                            if ($user->getPrimaryElectronicAddress()) {
+                                $emailAddress = $user->getPrimaryElectronicAddress()->getIdentifier();
+                            } else {
                                 $emailAddress = $user->getElectronicAddresses()->first()->getIdentifier();
                             }
                         }
