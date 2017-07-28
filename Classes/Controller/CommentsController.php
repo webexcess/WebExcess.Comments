@@ -102,6 +102,7 @@ class CommentsController extends ActionController
         /** @var NodeInterface $documentNode */
         $documentNode = $this->request->getInternalArgument('__documentNode');
         $q = new FlowQuery(array($documentNode));
+        $storageNodeQuery = $q->find('[instanceof WebExcess.Comments:Content]')->count() > 0 ? $q->find('[instanceof WebExcess.Comments:Content]') : $q;
 
         $dimensions = array();
         $targetDimension = array();
@@ -116,9 +117,9 @@ class CommentsController extends ActionController
         }
 
         /** @var NodeInterface $commentsCollection */
-        $commentsCollection = $q->find('[instanceof WebExcess.Comments:Content]')->children('comments')->context(['workspaceName' => 'live', 'dimensions' => $dimensions, 'targetDimensions' => $targetDimension])->get(0);
+        $commentsCollection = $storageNodeQuery->children('comments')->context(['workspaceName' => 'live', 'dimensions' => $dimensions, 'targetDimensions' => $targetDimension])->get(0);
         if ($comment->getReference() != '') {
-            $commentsCollection = $q->find('#' . $comment->getReference())->children('comments')->context(['workspaceName' => 'live', 'dimensions' => $dimensions, 'targetDimensions' => $targetDimension])->get(0);
+            $commentsCollection = $storageNodeQuery->find('#' . $comment->getReference())->children('comments')->context(['workspaceName' => 'live', 'dimensions' => $dimensions, 'targetDimensions' => $targetDimension])->get(0);
         }
 
         $this->setAccountDataIfAuthenticated($comment);
