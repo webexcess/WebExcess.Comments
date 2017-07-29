@@ -20,6 +20,7 @@ use Neos\SwiftMailer;
 use WebExcess\Comments\Domain\Model\Comment;
 use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Flow\Log\SystemLoggerInterface;
+use WebExcess\Comments\Domain\Model\EmailReceiverTransferObject;
 
 /**
  * @Flow\Scope("singleton")
@@ -55,36 +56,53 @@ class Mailer
         /** @var NodeInterface $documentNode */
         $documentNode = $q->closest('[instanceof Neos.Neos:Document]')->get(0);
 
+        $recipients = $this->collectRecipientsByCommentNode($commentNode);
+
+        foreach ($recipients as $recipient) {
+            $this->sendCommentCreatedEmail($comment, $commentNode, $recipient, $documentNode);
+        }
+    }
+
+    /**
+     * @param NodeInterface $commentNode
+     * @return array
+     */
+    protected function collectRecipientsByCommentNode(NodeInterface $commentNode)
+    {
+        $q = new FlowQuery(array($commentNode));
+
+        /** @var NodeInterface $documentNode */
+        $documentNode = $q->closest('[instanceof Neos.Neos:Document]')->get(0);
+
         $threadNodes = $q->parent()->parent()->find('[instanceof WebExcess.Comments:Comment]')->get();
         if ($q->parent()->parent()->is('[instanceof WebExcess.Comments:Comment]')) {
             $threadNodes[] = $q->parent()->parent()->get(0);
         }
-        $recipientNodes = array();
+
+        $recipients = array();
         foreach ($threadNodes as $threadNode) {
             if ($threadNode->getProperty('notify') && $threadNode->getProperty('email') != $commentNode->getProperty('email')) {
-                $recipientNodes[sha1($threadNode->getProperty('email'))] = $threadNode;
+                $recipients[sha1($threadNode->getProperty('email'))] = new EmailReceiverTransferObject($threadNode);
             }
         }
 
-        foreach ($recipientNodes as $recipientNode) {
-            $this->sendCommentCreatedEmail($comment, $commentNode, $recipientNode, $documentNode);
-        }
+        return $recipients;
     }
 
     /**
      * @param Comment $comment
      * @param NodeInterface $commentNode
-     * @param NodeInterface $recipientNode
+     * @param EmailReceiverTransferObject $recipient
      * @param NodeInterface $documentNode
      */
-    private function sendCommentCreatedEmail(Comment &$comment, NodeInterface &$commentNode, NodeInterface &$recipientNode, NodeInterface &$documentNode)
+    protected function sendCommentCreatedEmail(Comment &$comment, NodeInterface &$commentNode, EmailReceiverTransferObject $recipient, NodeInterface &$documentNode)
     {
         $standaloneView = $this->initializeStandaloneView('commentCreatedView');
         $standaloneView->assign('documentIdentifier', $documentNode->getIdentifier());
         $standaloneView->assign('documentUri', $this->uriBuilder->getUriToNode($documentNode));
         $standaloneView->assign('comment', $comment);
-        $standaloneView->assign('firstname', $recipientNode->getProperty('firstname'));
-        $standaloneView->assign('lastname', $recipientNode->getProperty('lastname'));
+        $standaloneView->assign('firstname', $recipient->getProperty('firstname'));
+        $standaloneView->assign('lastname', $recipient->getProperty('lastname'));
         $message = $standaloneView->render();
 
         $fromAddress = $this->settings['fromAddress'];
@@ -94,8 +112,8 @@ class Mailer
         $blindCarbonCopyAddress = $this->settings['blindCarbonCopyAddress'];
 
         $subject = $this->settings['subject'];
-        $recipientAddress = $recipientNode->getProperty('email');
-        $recipientName = $recipientNode->getProperty('firstname') . ' ' . $recipientNode->getProperty('lastname');
+        $recipientAddress = $recipient->getProperty('email');
+        $recipientName = $recipient->getProperty('firstname') . ' ' . $recipient->getProperty('lastname');
 
         $mail = new SwiftMailer\Message();
         $mail->setFrom(array($fromAddress => $fromName))
