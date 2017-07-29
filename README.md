@@ -66,6 +66,9 @@ composer require webexcess/comments
 
 3. Create only the partial files you want to change. The others are still used from package.
 
+#### Send a review Email on new Comments
+[See here](Documentation/Examples/SendReviewEmail.md)
+
 #### Extend the Comment Form
 [See here](Documentation/Examples/ExtendTheCommentForm.md)
 
