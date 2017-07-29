@@ -56,7 +56,7 @@ class Mailer
         /** @var NodeInterface $documentNode */
         $documentNode = $q->closest('[instanceof Neos.Neos:Document]')->get(0);
 
-        $recipients = $this->collectRecipientsByNewCommentNode($commentNode);
+        $recipients = $this->collectRecipientsByCommentNode($commentNode);
 
         foreach ($recipients as $recipient) {
             $this->sendCommentCreatedEmail($comment, $commentNode, $recipient, $documentNode);
@@ -67,7 +67,7 @@ class Mailer
      * @param NodeInterface $commentNode
      * @return array
      */
-    protected function collectRecipientsByNewCommentNode(NodeInterface $commentNode)
+    protected function collectRecipientsByCommentNode(NodeInterface $commentNode)
     {
         $q = new FlowQuery(array($commentNode));
 

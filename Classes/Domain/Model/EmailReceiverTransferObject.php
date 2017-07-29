@@ -34,6 +34,11 @@ class EmailReceiverTransferObject
         }
     }
 
+    public function hasProperty($property)
+    {
+        return array_key_exists($property, $this->properties);
+    }
+
     public function getProperty($property)
     {
         return $this->properties[$property];
