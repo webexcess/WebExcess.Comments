@@ -61,7 +61,7 @@ composer require webexcess/comments
 -
   requestFilter: 'isPackage("WebExcess.Comments") && isController("Comments")'
   options:
-	partialRootPaths: ['resource://Your.Package/Private/Partials/Comments']
+    partialRootPaths: ['resource://Your.Package/Private/Partials/Comments']
 ```
 
 3. Create only the partial files you want to change. The others are still used from package.
