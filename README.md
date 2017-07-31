@@ -44,33 +44,20 @@ composer require webexcess/comments
   - Manipulating the comment listing,
   - User presentation,
   - etc.
-- [Form Template](#example-form-template)
+- Form Template
   - Change the Form markup with a [Views.yaml](http://flowframework.readthedocs.io/en/stable/TheDefinitiveGuide/PartIII/ModelViewController.html#configuring-views-through-views-yaml) entry
 - Email Template
   - Change the Email format and template in the packages settings
 - Signals and Slots
-  - The package sends the signal `commentCreated`. Read more about signal [here](http://flowframework.readthedocs.io/en/stable/TheDefinitiveGuide/PartIII/SignalsAndSlots.html).
+  - The package sends the signal `commentCreated`. Read more about signals [here](http://flowframework.readthedocs.io/en/stable/TheDefinitiveGuide/PartIII/SignalsAndSlots.html).
 
-### Examples
+### Extension and Integration Examples
+- [Integrate in existing NodeType](Documentation/Examples/IntegrateInExistingNodeType.md)
+- [Send a review Email on new Comments](Documentation/Examples/SendReviewEmail.md)
+- [Extend the Comment Form](Documentation/Examples/ExtendTheCommentForm.md)
+  - [Add a Property to Comments](Documentation/Examples/ExtendTheCommentForm.md#add-property)
+  - [Change Form and FormField Templates](Documentation/Examples/ExtendTheCommentForm.md#change-form-template)
 
-#### Form-Template<a name="example-form-template"></a>
-1. Create a *Views.yaml* file in the *Configuration* folder of your package
-2. Paste the following code in this file
-
-```yaml
--
-  requestFilter: 'isPackage("WebExcess.Comments") && isController("Comments")'
-  options:
-    partialRootPaths: ['resource://Your.Package/Private/Partials/Comments']
-```
-
-3. Create only the partial files you want to change. The others are still used from package.
-
-#### Send a review Email on new Comments
-[See here](Documentation/Examples/SendReviewEmail.md)
-
-#### Extend the Comment Form
-[See here](Documentation/Examples/ExtendTheCommentForm.md)
 
 ------------------------------------------
 

@@ -2,7 +2,7 @@
 
 Let's assume we create a Blog-Package and have to add an optional phone field to the comment form.
 
-**Add the new Property to the NodeType and Inspector Section**
+**Add the new Property to the NodeType and Inspector Section<a name="add-property"></a>**
 
 _Vendor.Blog/Configuration/NodeTypes.Comment.yaml_
 
@@ -90,7 +90,7 @@ _Vendor.Blog/Classes/Vendor/Blog/Traits/CommentPropertyTrait.php_
 	
 	}
 
-**Point to your custom Templates**
+**Point to your custom Templates<a name="change-form-template"></a>**
 
 _Vendor.Blog/Configuration/Views.yaml_
 
