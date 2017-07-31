@@ -1,6 +1,6 @@
 # Integrate in existing NodeType
 
-Let's assume we create a simple Blog-Package and wanna integrate [webexcess/comments](https://github.com/webexcess/WebExcess.Comments) in every Blog Post NodeType.
+Let's assume we create a simple Blog-Package and wanna integrate [webexcess/comments](https://github.com/webexcess/WebExcess.Comments) in every Blog Post Node.
 
 **Add the Comments Mixins to your NodeType**
 
@@ -35,4 +35,4 @@ _Vendor.Blog/Resources/Private/Fusion/Pages/Post.fusion_
 
 **Result**
 
-Now every every Blog-Post contains automatically the Comments-Section.
+Now every Blog-Post contains automatically a fully working Comments-Section.
