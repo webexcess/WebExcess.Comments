@@ -20,4 +20,11 @@ prototype(Neos.Neos:Page) {
         @position = 'end'
         @if.isEnabled = ${Configuration.setting('WebExcess.Comments.includeJavascript')}
     }
+
+    body.javascripts.reCaptcha = Neos.Fusion:Tag {
+        tagName = 'script'
+        attributes.src = '//www.google.com/recaptcha/api.js'
+        @position = 'end'
+        @if.isEnabled = ${Configuration.setting('WebExcess.Comments.reCaptcha.enabled')}
+    }
 }

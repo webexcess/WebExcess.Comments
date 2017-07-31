@@ -58,6 +58,12 @@ class Comment
     protected $reference;
 
     /**
+     * @var string
+     * @Flow\Validate(type="WebExcess.Comments:ReCaptcha")
+     */
+    protected $reCaptchaToken;
+
+    /**
      * @return string
      */
     public function getFirstname()
@@ -177,4 +183,21 @@ class Comment
     {
         $this->reference = $reference;
     }
+
+    /**
+     * @return string
+     */
+    public function getReCaptchaToken()
+    {
+        return $this->reCaptchaToken;
+    }
+
+    /**
+     * @param string $reCaptchaToken
+     */
+    public function setReCaptchaToken(string $reCaptchaToken)
+    {
+        $this->reCaptchaToken = $reCaptchaToken;
+    }
+
 }

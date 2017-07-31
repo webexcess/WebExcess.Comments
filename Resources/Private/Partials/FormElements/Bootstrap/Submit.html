@@ -1,3 +1,21 @@
 <div class="form-action">
-    <f:form.button type="submit" class="btn btn-primary"><f:translate id="comment.form.btn.submit" /></f:form.button>
+    <f:if condition="{reCaptcha}">
+        <f:then>
+            <script>
+                function ReCaptchaSubmit(token) {
+                    document.getElementById('reCaptchaToken').value = token;
+                    document.getElementById('comment-form').submit();
+                }
+            </script>
+
+            <f:render partial="HiddenField" arguments="{fieldname: 'reCaptchaToken'}" />
+            <f:render partial="Error" arguments="{fieldname: 'reCaptchaToken'}" />
+
+            <f:form.button type="submit" class="btn btn-primary g-recaptcha" data="{sitekey: reCaptcha, callback: 'submitCommentForm'}"><f:translate id="comment.form.btn.submit" /></f:form.button>
+        </f:then>
+        <f:else>
+            <f:form.button type="submit" class="btn btn-primary"><f:translate id="comment.form.btn.submit" /></f:form.button>
+        </f:else>
+    </f:if>
+
 </div>

@@ -1,0 +1,9 @@
+<f:form.validationResults for="comment.{fieldname}">
+    <f:if condition="{validationResults.flattenedErrors}">
+        <div class="form-group is-invalid-label">
+            <label>
+                <f:render partial="Validation" arguments="{fieldname: fieldname}" />
+            </label>
+        </div>
+    </f:if>
+</f:form.validationResults>
