@@ -1,3 +1,13 @@
 <div class="mf-form-actions">
-    <f:form.button type="submit" class="mf-button"><f:translate id="comment.form.btn.submit" /></f:form.button>
+    <f:if condition="{reCaptcha}">
+        <f:then>
+            <f:render partial="HiddenField" arguments="{fieldname: 'reCaptchaToken'}" />
+            <f:render partial="Error" arguments="{fieldname: 'reCaptchaToken'}" />
+
+            <f:form.button type="submit" class="mf-button g-recaptcha" data="{sitekey: reCaptcha, callback: 'commentsReCaptchaSubmit'}"><f:translate id="comment.form.btn.submit" /></f:form.button>
+        </f:then>
+        <f:else>
+            <f:form.button type="submit" class="mf-button"><f:translate id="comment.form.btn.submit" /></f:form.button>
+        </f:else>
+    </f:if>
 </div>
