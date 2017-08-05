@@ -50,7 +50,8 @@
 
             <f:render partial="HiddenField" arguments="{fieldname: 'reference'}" />
             <f:comment><f:render partial="TextField" arguments="{fieldname: 'reference'}" /></f:comment>
-            <f:render partial="Submit" />
+
+            <f:render partial="Submit" arguments="{reCaptcha: reCaptcha}" />
         </f:form>
     </div>
 </f:if>

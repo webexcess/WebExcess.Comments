@@ -85,10 +85,20 @@ class CommentsController extends ActionController
             $allowCommenting = true;
         }
 
+        $reCaptcha = false;
+        if ($this->settings['reCaptcha']['enabled']) {
+            if (!class_exists('\ReCaptcha\ReCaptcha')) {
+                throw new Exception('The Class "\ReCaptcha\ReCaptcha" does not exist!');
+            }
+
+            $reCaptcha = $this->settings['reCaptcha']['websiteKey'];
+        }
+
         $this->view->assignMultiple(array(
             'comment' => $comment,
             'isLoggedIn' => $isLoggedIn,
-            'allowCommenting' => $allowCommenting
+            'allowCommenting' => $allowCommenting,
+            'reCaptcha' => $reCaptcha,
         ));
     }
 
@@ -133,6 +143,10 @@ class CommentsController extends ActionController
             $newCommentNode->setProperty('publishingDate', new \DateTime());
 
             foreach ($propertyNames as $propertyName) {
+                if ($propertyName == 'reCaptchaToken') {
+                    continue;
+                }
+
                 $methodName = $propertyName == 'notify' ? 'is' . ucfirst($propertyName) : 'get' . ucfirst($propertyName);
                 if (method_exists($comment, $methodName)) {
                     $method = $methodName;

@@ -35,6 +35,10 @@ WebExcess:
     repliesDepth: 1
     form:
       preset: 'Bootstrap' # WebExcess | Bootstrap | Foundation | Material | Float
+    reCaptcha:
+      enabled: false
+      websiteKey: ''
+      secretKey: ''
     mailer:
       testMode: false
       commentCreatedView:
