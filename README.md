@@ -35,6 +35,11 @@ composer require webexcess/comments
 - **form.preset** (string)
   - Bootstrap (default): Base CSS-Framework for the form
   - Possible values are: WebExcess | Bootstrap | Foundation | Material | Float
+- **reCaptcha ..**
+  - To use reCaptcha, install the suggested Package first:
+    ```
+    composer require google/recaptcha
+    ```
 - **reCaptcha.enabled** (boolean)
   - true: [Invisible reCAPTCHA](https://developers.google.com/recaptcha/docs/invisible) gets loaded
   - false (default): No Bot-Prevention is activated

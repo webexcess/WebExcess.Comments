@@ -14,6 +14,7 @@ namespace WebExcess\Comments\Validation\Validator;
 
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Validation\Validator\AbstractValidator;
+use Neos\Neos\Exception;
 
 /**
  * @Flow\Scope("singleton")
@@ -36,6 +37,10 @@ class ReCaptchaValidator extends AbstractValidator
     {
         if (!$this->settings['enabled']) {
             return true;
+        }
+
+        if (!class_exists('\ReCaptcha\ReCaptcha')) {
+            throw new Exception('The Class "\ReCaptcha\ReCaptcha" does not exist!');
         }
 
         if (!is_string($value)) {

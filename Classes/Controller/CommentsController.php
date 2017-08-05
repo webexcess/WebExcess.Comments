@@ -87,6 +87,10 @@ class CommentsController extends ActionController
 
         $reCaptcha = false;
         if ($this->settings['reCaptcha']['enabled']) {
+            if (!class_exists('\ReCaptcha\ReCaptcha')) {
+                throw new Exception('The Class "\ReCaptcha\ReCaptcha" does not exist!');
+            }
+
             $reCaptcha = $this->settings['reCaptcha']['websiteKey'];
         }
 
