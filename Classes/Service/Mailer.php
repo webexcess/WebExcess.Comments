@@ -19,7 +19,6 @@ use Neos\Form\Exception\FinisherException;
 use Neos\FluidAdaptor\View\StandaloneView;
 use Neos\SwiftMailer;
 use WebExcess\Comments\Domain\Model\CommentInterface;
-use WebExcess\Comments\Domain\Model\Comment;
 use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Flow\Log\SystemLoggerInterface;
 use WebExcess\Comments\Domain\Model\EmailReceiverTransferObject;

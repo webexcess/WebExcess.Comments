@@ -82,7 +82,7 @@ class CommentsController extends ActionController
      */
     public function indexAction()
     {
-        $comment = $this->objectManager->get('WebExcess\Comments\Domain\Model\CommentInterface');
+        $comment = $this->objectManager->get(CommentInterface::class);
         $isLoggedIn = $comment->loadAccountDataIfAuthenticated();
 
         $allowCommenting = false;
