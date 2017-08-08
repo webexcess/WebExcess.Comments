@@ -14,9 +14,11 @@ namespace WebExcess\Comments\Service;
 
 use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\Flow\Annotations as Flow;
+use Neos\Flow\ObjectManagement\ObjectManager;
 use Neos\Form\Exception\FinisherException;
 use Neos\FluidAdaptor\View\StandaloneView;
 use Neos\SwiftMailer;
+use WebExcess\Comments\Domain\Model\CommentInterface;
 use WebExcess\Comments\Domain\Model\Comment;
 use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Flow\Log\SystemLoggerInterface;
@@ -46,10 +48,16 @@ class Mailer
     protected $logger;
 
     /**
-     * @param Comment $comment
+     * @var ObjectManager
+     * @Flow\Inject
+     */
+    protected $objectManager;
+
+    /**
+     * @param CommentInterface $comment
      * @param NodeInterface $commentNode
      */
-    public function sendCommentCreatedEmails(Comment $comment, NodeInterface $commentNode)
+    public function sendCommentCreatedEmails(CommentInterface $comment, NodeInterface $commentNode)
     {
         $q = new FlowQuery(array($commentNode));
 
@@ -82,7 +90,9 @@ class Mailer
         $recipients = array();
         foreach ($threadNodes as $threadNode) {
             if ($threadNode->getProperty('notify') && $threadNode->getProperty('email') != $commentNode->getProperty('email')) {
-                $recipients[sha1($threadNode->getProperty('email'))] = new EmailReceiverTransferObject($threadNode);
+                $comment = $this->objectManager->get(CommentInterface::class);
+                $comment->loadNodeData($threadNode);
+                $recipients[sha1($threadNode->getProperty('email'))] = new EmailReceiverTransferObject($comment);
             }
         }
 
@@ -90,12 +100,12 @@ class Mailer
     }
 
     /**
-     * @param Comment $comment
+     * @param CommentInterface $comment
      * @param NodeInterface $commentNode
      * @param EmailReceiverTransferObject $recipient
      * @param NodeInterface $documentNode
      */
-    protected function sendCommentCreatedEmail(Comment &$comment, NodeInterface &$commentNode, EmailReceiverTransferObject $recipient, NodeInterface &$documentNode)
+    protected function sendCommentCreatedEmail(CommentInterface &$comment, NodeInterface &$commentNode, EmailReceiverTransferObject $recipient, NodeInterface &$documentNode)
     {
         $standaloneView = $this->initializeStandaloneView('commentCreatedView');
         $standaloneView->assign('documentIdentifier', $documentNode->getIdentifier());

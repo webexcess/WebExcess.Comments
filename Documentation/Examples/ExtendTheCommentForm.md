@@ -19,76 +19,34 @@ _Vendor.Blog/Configuration/NodeTypes.Comment.yaml_
 						editorOptions:
 							maxlength: 50
 
-**Introduce the new Property to the Domain Model**
+**Create a custom Comment-Model which includes the new Property**
 
-_Vendor.Blog/Classes/Vendor/Blog/Aspects/CommentPropertyIntroductionAspect.php_
+_Vendor.Blog/Classes/Vendor/Blog/Domain/Model/Comment.php_
 
 	<?php
 	
-	namespace Vendor\Blog\Aspects;
+	namespace Vendor\Blog\Domain\Model;
 	
 	use Neos\Flow\Annotations as Flow;
-
-	/**
-	 * @Flow\Aspect
-	 */
-	class CommentPropertyIntroductionAspect
+	use WebExcess\Comments\Domain\Model\Comment as CommentOriginal;
+	use WebExcess\Comments\Domain\Model\CommentInterface;
+	
+	class Comment extends CommentOriginal implements CommentInterface
 	{
 	
 		/**
 		 * @var string
-		 * @Flow\Introduce("class(WebExcess\Comments\Domain\Model\Comment)")
 		 */
 		protected $phone;
 	
 	}
 
-**Introduce a Trait which enables you to add new Methods to the Model**
+**Replace the original Comment-Model with your version**
 
-_Vendor.Blog/Classes/Vendor/Blog/Aspects/CommentPropertyTraitIntroductionAspect.php_
+_Vendor.Blog/Classes/Vendor/Blog/Configuration/Objects.yaml_
 
-	<?php
-	
-	namespace Vendor\Blog\Aspects;
-	
-	use Neos\Flow\Annotations as Flow;
-	
-	/**
-	 * @Flow\Introduce("class(WebExcess\Comments\Domain\Model\Comment)", traitName="Vendor\Blog\Traits\CommentPropertyTrait")
-	 * @Flow\Aspect
-	 */
-	class CommentPropertyTraitIntroductionAspect
-	{
-	}
-
-**Use a Trait which inserts the new Getter and Setter**
-
-_Vendor.Blog/Classes/Vendor/Blog/Traits/CommentPropertyTrait.php_
-
-	<?php
-	
-	namespace Vendor\Blog\Traits;
-	
-	trait CommentPropertyTrait
-	{
-	
-		/**
-		 * @return string
-		 */
-		public function getPhone()
-		{
-			return $this->phone;
-		}
-		
-		/**
-		 * @param string $phone
-		 */
-		public function setPhone($phone)
-		{
-			$this->phone = $phone;
-		}
-	
-	}
+	WebExcess\Comments\Domain\Model\CommentInterface:
+		className: 'Vendor\Blog\Domain\Model\Comment'
 
 **Point to your custom Templates<a name="change-form-template"></a>**
 

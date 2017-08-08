@@ -18,16 +18,17 @@ use Neos\Flow\Mvc\Controller\ActionController;
 use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\Flow\Mvc\View\ViewInterface;
 use Neos\Flow\Security\Context;
+use Neos\Flow\Validation\ValidatorResolver;
 use Neos\Neos\Domain\Service\UserService;
 use Neos\FluidAdaptor\View\TemplateView;
 use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\ContentRepository\Domain\Service\NodeTypeManager;
 use Neos\Neos\Domain\Service\ContentDimensionPresetSourceInterface;
-use Neos\Party\Domain\Model\ElectronicAddress;
-use WebExcess\Comments\Domain\Model\Comment;
+use WebExcess\Comments\Domain\Model\CommentInterface;
 use Neos\Neos\Exception;
 use Neos\Error\Messages\Message;
 use WebExcess\Comments\Service\NodeUriBuilder;
+use Neos\Flow\Property\PropertyMapper;
 
 class CommentsController extends ActionController
 {
@@ -70,12 +71,19 @@ class CommentsController extends ActionController
     protected $contentDimensionPresetSource;
 
     /**
+     * @Flow\Inject
+     * @var PropertyMapper
+     */
+    protected $propertyMapper;
+
+    /**
      * @return void
+     * @throws Exception
      */
     public function indexAction()
     {
-        $comment = new Comment();
-        $isLoggedIn = $this->setAccountDataIfAuthenticated($comment);
+        $comment = $this->objectManager->get('WebExcess\Comments\Domain\Model\CommentInterface');
+        $isLoggedIn = $comment->loadAccountDataIfAuthenticated();
 
         $allowCommenting = false;
         if ($isLoggedIn === true && $this->settings['allowCommenting']['account'] === true) {
@@ -102,12 +110,19 @@ class CommentsController extends ActionController
         ));
     }
 
+    protected function initializeCreateAction() {
+        $commentImplementationClassName = $this->objectManager->getClassNameByObjectName(CommentInterface::class);
+        $validatorResolver = new ValidatorResolver();
+        $commentValidator = $validatorResolver->getBaseValidatorConjunction($commentImplementationClassName);
+        $this->arguments->getArgument('comment')->setValidator($commentValidator);
+    }
+
     /**
-     * @param Comment $comment
+     * @param CommentInterface $comment
      * @return void
      * @throws Exception
      */
-    public function createAction(Comment $comment)
+    public function createAction(CommentInterface $comment)
     {
         /** @var NodeInterface $documentNode */
         $documentNode = $this->request->getInternalArgument('__documentNode');
@@ -132,10 +147,11 @@ class CommentsController extends ActionController
             $commentsCollection = $storageNodeQuery->find('#' . $comment->getReference())->children('comments')->context(['workspaceName' => 'live', 'dimensions' => $dimensions, 'targetDimensions' => $targetDimension])->get(0);
         }
 
-        $this->setAccountDataIfAuthenticated($comment);
+        // Make shure, that no account-data gets overwitten by post-data..
+        $comment->loadAccountDataIfAuthenticated();
 
         if ($commentsCollection !== null) {
-            $propertyNames = $this->reflectionService->getClassPropertyNames('WebExcess\Comments\Domain\Model\Comment');
+            $propertyNames = $this->reflectionService->getClassPropertyNames(get_class($comment));
             $commentNodeType = $this->nodeTypeManager->getNodeType('WebExcess.Comments:Comment');
 
             $newCommentNode = $commentsCollection->createNode(uniqid('comment-'), $commentNodeType);
@@ -143,7 +159,7 @@ class CommentsController extends ActionController
             $newCommentNode->setProperty('publishingDate', new \DateTime());
 
             foreach ($propertyNames as $propertyName) {
-                if ($propertyName == 'reCaptchaToken') {
+                if ($propertyName == 'reCaptchaToken' || $propertyName == 'publishingDate') {
                     continue;
                 }
 
@@ -177,54 +193,12 @@ class CommentsController extends ActionController
     }
 
     /**
-     * @param Comment $comment
-     * @return bool
-     * @throws Exception
-     */
-    private function setAccountDataIfAuthenticated(Comment &$comment)
-    {
-        $isLoggedIn = false;
-        $authenticationTokens = $this->securityContext->getAuthenticationTokens();
-        if (!empty($authenticationTokens)) {
-            $account = $this->securityContext->getAccount();
-            if ($account !== null) {
-                foreach ($authenticationTokens as $authenticationProviderName => $obj) {
-                    $user = $this->userService->getUser($account->getAccountIdentifier(), $authenticationProviderName);
-                    if ($user) {
-                        $emailAddress = null;
-                        if ($user->getElectronicAddresses()->count() <= 0) {
-                            if (filter_var($account->getAccountIdentifier(), FILTER_VALIDATE_EMAIL)) {
-                                $emailAddress = $account->getAccountIdentifier();
-                            }
-                        } else {
-                            if ($user->getPrimaryElectronicAddress()) {
-                                $emailAddress = $user->getPrimaryElectronicAddress()->getIdentifier();
-                            } else {
-                                $emailAddress = $user->getElectronicAddresses()->first()->getIdentifier();
-                            }
-                        }
-
-                        $isLoggedIn = true;
-                        if ($emailAddress !== null) {
-                            $comment->setEmail($emailAddress);
-                        }
-                        $comment->setFirstname($user->getName()->getFirstName());
-                        $comment->setLastname($user->getName()->getLastName());
-                        $comment->setAccount($account->getAccountIdentifier());
-                    }
-                }
-            }
-        }
-        return $isLoggedIn;
-    }
-
-    /**
-     * @param Comment $comment
+     * @param CommentInterface $comment
      * @param Node $commentNode
      * @return void
      * @Flow\Signal
      */
-    protected function emitCommentCreated(Comment $comment, Node $commentNode)
+    protected function emitCommentCreated(CommentInterface $comment, Node $commentNode)
     {
     }
 }
