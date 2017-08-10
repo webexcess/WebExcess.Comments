@@ -1,0 +1,2 @@
+WebExcess\Comments\Domain\Model\CommentInterface:
+  className: 'WebExcess\Comments\Domain\Model\Comment'

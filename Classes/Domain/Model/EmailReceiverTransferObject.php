@@ -12,7 +12,8 @@ namespace WebExcess\Comments\Domain\Model;
  * source code.
  */
 
-use Neos\ContentRepository\Domain\Model\NodeInterface;
+use Neos\Flow\Reflection\ReflectionService;
+use WebExcess\Comments\Domain\Model\CommentInterface;
 
 class EmailReceiverTransferObject
 {
@@ -23,14 +24,27 @@ class EmailReceiverTransferObject
     protected $properties;
 
     /**
+     * @var ReflectionService
+     */
+    protected $reflectionService;
+
+    /**
      * EmailReceiverTransferObject constructor.
      *
-     * @param NodeInterface|null $node
+     * @param CommentInterface|null $comment
      */
-    public function __construct(NodeInterface $node = null)
+    public function __construct(CommentInterface $comment = null)
     {
-        if ($node) {
-            $this->properties = $node->getProperties();
+        if ($comment) {
+            foreach (get_class_methods(get_class($comment)) as $methodName) {
+                if (strpos($methodName, 'get') !== 0) {
+                    continue;
+                }
+
+                $propertyName = lcfirst(substr($methodName, 3));
+
+                $this->properties[$propertyName] = $comment->$methodName();
+            }
         }
     }
 
