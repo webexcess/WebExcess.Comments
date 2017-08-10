@@ -110,13 +110,6 @@ class CommentsController extends ActionController
         ));
     }
 
-    protected function initializeCreateAction() {
-        $commentImplementationClassName = $this->objectManager->getClassNameByObjectName(CommentInterface::class);
-        $validatorResolver = new ValidatorResolver();
-        $commentValidator = $validatorResolver->getBaseValidatorConjunction($commentImplementationClassName);
-        $this->arguments->getArgument('comment')->setValidator($commentValidator);
-    }
-
     /**
      * @param CommentInterface $comment
      * @return void

@@ -67,6 +67,7 @@ composer require webexcess/comments
 - [Extend the Comment Form](Documentation/Examples/ExtendTheCommentForm.md)
   - [Add a Property to Comments](Documentation/Examples/ExtendTheCommentForm.md#add-property)
   - [Change Form and FormField Templates](Documentation/Examples/ExtendTheCommentForm.md#change-form-template)
+- [Remove Comment-Properties](Documentation/Examples/SimplifyTheCommentModel.md)
 
 
 ------------------------------------------

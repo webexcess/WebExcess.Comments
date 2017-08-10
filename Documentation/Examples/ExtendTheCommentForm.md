@@ -39,6 +39,22 @@ _Vendor.Blog/Classes/Vendor/Blog/Domain/Model/Comment.php_
 		 */
 		protected $phone;
 	
+		/**
+		 * @return string
+		 */
+		public function getPhone()
+		{
+			return $this->phone;
+		}
+	
+		/**
+		 * @param string $phone
+		 */
+		public function setPhone($phone)
+		{
+			$this->phone = $phone;
+		}
+	
 	}
 
 **Replace the original Comment-Model with your version**
