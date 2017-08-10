@@ -4,4 +4,4 @@ import style from './Main.scss';
 
 reply();
 
-window.commentsReCaptchaSubmit = ReCaptchaSubmit;
+window.commentsReCaptchaSubmit = reCaptchaSubmit;
