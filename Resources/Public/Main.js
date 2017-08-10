@@ -74,13 +74,19 @@ var _Reply = __webpack_require__(1);
 
 var _Reply2 = _interopRequireDefault(_Reply);
 
-var _Main = __webpack_require__(2);
+var _ReCaptchaSubmit = __webpack_require__(2);
+
+var _ReCaptchaSubmit2 = _interopRequireDefault(_ReCaptchaSubmit);
+
+var _Main = __webpack_require__(3);
 
 var _Main2 = _interopRequireDefault(_Main);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _Reply2.default)();
+
+window.commentsReCaptchaSubmit = _ReCaptchaSubmit2.default;
 
 /***/ }),
 /* 1 */
@@ -121,6 +127,26 @@ exports.default = ReplyButton;
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var ReCaptchaSubmit = function ReCaptchaSubmit(token) {
+    var formId = 'comment-form';
+    var formFieldId = 'reCaptchaToken';
+
+    document.getElementById(formFieldId).value = token;
+    document.getElementById(formId).submit();
+};
+
+exports.default = ReCaptchaSubmit;
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
