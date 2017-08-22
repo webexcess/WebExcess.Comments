@@ -153,6 +153,8 @@ class CommentService
         }
 
         $this->persistenceManager->persistAll();
+
+        $this->emitCommentCreated($comment, $commentNode);
     }
 
     /**
@@ -162,6 +164,16 @@ class CommentService
      * @Flow\Signal
      */
     protected function emitCommentCreated(CommentInterface $comment, Node $commentNode)
+    {
+    }
+
+    /**
+     * @param CommentInterface $comment
+     * @param Node $commentNode
+     * @return void
+     * @Flow\Signal
+     */
+    protected function emitCommentUpdated(CommentInterface $comment, Node $commentNode)
     {
     }
 }
