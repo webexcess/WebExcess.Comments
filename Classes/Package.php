@@ -14,7 +14,7 @@ namespace WebExcess\Comments;
 
 use Neos\Flow\Core\Bootstrap;
 use Neos\Flow\Package\Package as BasePackage;
-use WebExcess\Comments\Controller\CommentsController;
+use WebExcess\Comments\Service\CommentService;
 use WebExcess\Comments\Service\Mailer;
 
 class Package extends BasePackage
@@ -27,7 +27,7 @@ class Package extends BasePackage
     {
         $dispatcher = $bootstrap->getSignalSlotDispatcher();
         $dispatcher->connect(
-            CommentsController::class, 'commentCreated',
+            CommentService::class, 'commentCreated',
             Mailer::class, 'sendCommentCreatedEmails'
         );
     }
