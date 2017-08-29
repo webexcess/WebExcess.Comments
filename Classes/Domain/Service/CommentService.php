@@ -12,16 +12,14 @@ namespace WebExcess\Comments\Domain\Service;
  * source code.
  */
 
+use Neos\Flow\Annotations as Flow;
 use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\ContentRepository\Domain\Service\NodeTypeManager;
 use Neos\Eel\FlowQuery\FlowQuery;
-use Neos\Error\Messages\Message;
-use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Persistence\PersistenceManagerInterface;
 use Neos\Flow\Reflection\ReflectionService;
 use Neos\Neos\Domain\Service\ContentDimensionPresetSourceInterface;
 use WebExcess\Comments\Domain\Model\CommentInterface;
-use Neos\ContentRepository\Domain\Model\Node;
 use Neos\Neos\Exception;
 
 /**
@@ -154,26 +152,26 @@ class CommentService
 
         $this->persistenceManager->persistAll();
 
-        $this->emitCommentCreated($comment, $commentNode);
+        $this->emitCommentUpdated($comment, $commentNode);
     }
 
     /**
      * @param CommentInterface $comment
-     * @param Node $commentNode
+     * @param NodeInterface $commentNode
      * @return void
      * @Flow\Signal
      */
-    protected function emitCommentCreated(CommentInterface $comment, Node $commentNode)
+    protected function emitCommentCreated(CommentInterface $comment, NodeInterface $commentNode)
     {
     }
 
     /**
      * @param CommentInterface $comment
-     * @param Node $commentNode
+     * @param NodeInterface $commentNode
      * @return void
      * @Flow\Signal
      */
-    protected function emitCommentUpdated(CommentInterface $comment, Node $commentNode)
+    protected function emitCommentUpdated(CommentInterface $comment, NodeInterface $commentNode)
     {
     }
 }

@@ -31,12 +31,13 @@ class ReCaptchaValidator extends AbstractValidator
     /**
      * @param mixed $value The value that should be validated
      * @return void
+     * @throws Exception
      * @api
      */
     protected function isValid($value)
     {
         if (!$this->settings['enabled']) {
-            return true;
+            return;
         }
 
         if (!class_exists('\ReCaptcha\ReCaptcha')) {

@@ -12,8 +12,8 @@ namespace WebExcess\Comments\Service;
  * source code.
  */
 
-use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\Flow\Annotations as Flow;
+use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\Flow\ObjectManagement\ObjectManager;
 use Neos\Form\Exception\FinisherException;
 use Neos\FluidAdaptor\View\StandaloneView;

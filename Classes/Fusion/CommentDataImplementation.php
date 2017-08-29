@@ -35,7 +35,9 @@ class CommentDataImplementation extends ArrayImplementation
         $comment = $this->objectManager->get(CommentInterface::class);
         $comment->loadNodeData($node);
 
-        $output = array();
+        $output = array(
+            'identifier' => $node->getIdentifier()
+        );
 
         foreach (get_class_methods(get_class($comment)) as $methodName) {
             if (strpos($methodName, 'get') !== 0) {

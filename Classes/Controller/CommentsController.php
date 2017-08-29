@@ -16,15 +16,12 @@ use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Mvc\Controller\ActionController;
 use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\Flow\Mvc\View\ViewInterface;
-use Neos\Flow\Security\Context;
-use Neos\Flow\Validation\ValidatorResolver;
-use Neos\Neos\Domain\Service\UserService;
 use Neos\FluidAdaptor\View\TemplateView;
 use WebExcess\Comments\Domain\Model\CommentInterface;
 use Neos\Neos\Exception;
 use WebExcess\Comments\Domain\Service\CommentService;
 use WebExcess\Comments\Service\NodeUriBuilder;
-use Neos\Flow\Property\PropertyMapper;
+use Neos\Error\Messages\Message;
 
 class CommentsController extends ActionController
 {
@@ -34,30 +31,12 @@ class CommentsController extends ActionController
      */
     protected $settings;
 
-    /**
-     * @var Context
-     * @Flow\Inject
-     */
-    protected $securityContext;
-
-    /**
-     * @Flow\Inject
-     * @var UserService
-     */
-    protected $userService;
-
 
     /**
      * @Flow\Inject()
      * @var NodeUriBuilder
      */
     protected $nodeUriBuilder;
-
-    /**
-     * @Flow\Inject
-     * @var PropertyMapper
-     */
-    protected $propertyMapper;
 
     /**
      * @Flow\Inject
@@ -124,6 +103,5 @@ class CommentsController extends ActionController
         $partialRootPaths[] = 'resource://WebExcess.Comments/Private/Partials/FormElements/' . $this->settings['form']['preset'] . '/';
         $view->getTemplatePaths()->setPartialRootPaths($partialRootPaths);
     }
-
 
 }

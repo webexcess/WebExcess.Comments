@@ -12,8 +12,8 @@ namespace WebExcess\Comments\Domain\Model;
  * source code.
  */
 
-use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\Flow\Annotations as Flow;
+use Neos\ContentRepository\Domain\Model\NodeInterface;
 
 class CommentFeUserOnly extends CommentAbstract implements CommentInterface
 {

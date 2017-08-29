@@ -19,10 +19,10 @@ use Neos\Flow\Mvc\Controller\ControllerContext;
 use Neos\Flow\Mvc\Routing\UriBuilder as RealUriBuilder;
 use Neos\Flow\Configuration\ConfigurationManager;
 use Neos\Flow\Http\Request;
-use Neos\Flow\Http\Uri;
 use Neos\Flow\Mvc\ActionRequest;
 use Neos\Flow\Http\Response;
 use Neos\Flow\Mvc\Controller\Arguments;
+use Neos\Neos\Exception;
 
 /**
  * @Flow\Scope("singleton")
@@ -62,7 +62,7 @@ class NodeUriBuilder
      *
      * @param NodeInterface $node
      * @return string The URL of the node
-     * @throws \Neos\Neos\Exception
+     * @throws Exception
      */
     public function getUriToNode(NodeInterface $node)
     {

@@ -14,7 +14,7 @@ namespace WebExcess\Comments;
 
 use Neos\Flow\Core\Bootstrap;
 use Neos\Flow\Package\Package as BasePackage;
-use WebExcess\Comments\Service\CommentService;
+use WebExcess\Comments\Domain\Service\CommentService;
 use WebExcess\Comments\Service\Mailer;
 
 class Package extends BasePackage
