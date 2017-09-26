@@ -28,7 +28,7 @@
 			</trans-unit>
 
             <trans-unit id="comment.form.flashMessage.1499693207" xml:space="preserve">
-				<source>Tank you! Comment successfully added.</source>
+				<source>Thank you! Comment successfully added.</source>
 			</trans-unit>
 
 			<group id="comment.list.title" restype="x-gettext-plurals">
