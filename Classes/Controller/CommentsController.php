@@ -74,7 +74,7 @@ class CommentsController extends ActionController
             'comment' => $comment,
             'isLoggedIn' => $isLoggedIn,
             'allowCommenting' => $allowCommenting,
-            'reCaptcha' => $reCaptcha,
+            'reCaptcha' => $reCaptcha
         ));
     }
 

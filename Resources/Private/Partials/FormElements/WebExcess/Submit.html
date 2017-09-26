@@ -1,13 +1,14 @@
+{namespace comments=WebExcess\Comments\ViewHelpers}
 <div class="clearfix">
     <f:if condition="{reCaptcha}">
         <f:then>
             <f:render partial="HiddenField" arguments="{fieldname: 'reCaptchaToken'}" />
             <f:render partial="Error" arguments="{fieldname: 'reCaptchaToken'}" />
 
-            <f:form.button type="submit" class="btn btn-primary g-recaptcha" data="{sitekey: reCaptcha, callback: 'commentsReCaptchaSubmit'}"><f:translate id="comment.form.btn.submit" /></f:form.button>
+            <f:form.button type="submit" class="btn btn-primary g-recaptcha" data="{sitekey: reCaptcha, callback: 'commentsReCaptchaSubmit'}"><comments:translate id="comment.form.btn.submit" /></f:form.button>
         </f:then>
         <f:else>
-            <f:form.button type="submit" class="btn btn-primary"><f:translate id="comment.form.btn.submit" /></f:form.button>
+            <f:form.button type="submit" class="btn btn-primary"><comments:translate id="comment.form.btn.submit" /></f:form.button>
         </f:else>
     </f:if>
 </div>

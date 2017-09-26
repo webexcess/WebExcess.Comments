@@ -8,7 +8,7 @@ prototype(WebExcess.Comments:ReplyButton) < prototype(Neos.Fusion:Tag) {
         }
         data-identifier = ${commentData.identifier}
     }
-    content = ${Translation.translate('WebExcess.Comments:Main:comment.form.btn.reply')}
+	content = ${Translation.translate('comment.form.btn.reply', '', [], Configuration.setting('WebExcess.Comments.translation.source'), Configuration.setting('WebExcess.Comments.translation.package'))}
 
     @context {
         allowAccount = ${Security.getAccount() && Configuration.setting('WebExcess.Comments.allowCommenting.account') ? true : false}

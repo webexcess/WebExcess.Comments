@@ -1,3 +1,4 @@
-{f:translate(id: 'email.salutation', arguments: {0: firstname}, package: 'WebExcess.Comments')}
+{namespace comments=WebExcess\Comments\ViewHelpers}
+{comments:translate(id: 'email.salutation', arguments: {0: firstname})}
 
-{f:translate(id: 'email.text', arguments: {0: comment.firstname, 1: documentUri}, package: 'WebExcess.Comments')}
+{comments:translate(id: 'email.text', arguments: {0: comment.firstname, 1: documentUri})}

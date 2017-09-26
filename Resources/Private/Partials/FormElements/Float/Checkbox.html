@@ -1,9 +1,10 @@
+{namespace comments=WebExcess\Comments\ViewHelpers}
 <f:form.validationResults for="comment.{fieldname}">
     <div class="form-checkbox{f:if(condition: validationResults.flattenedErrors, then: ' has-error')}">
         <label class="form-checkbox-legend">
             <f:form.checkbox property="{fieldname}" id="{fieldname}" class="form-check-input" value="1" />
             <i class="form-checkbox-button"></i>
-            <span><f:translate id="comment.form.{fieldname}" />{f:if(condition: required, then: '<sup class="is-required">*</sup>')}</span>
+            <span><comments:translate id="comment.form.{fieldname}" />{f:if(condition: required, then: '<sup class="is-required">*</sup>')}</span>
         </label>
         <f:render partial="Validation" arguments="{fieldname: fieldname}" />
     </div>

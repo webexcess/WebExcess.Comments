@@ -1,2 +1,3 @@
-<p><f:translate id="email.salutation" arguments="{0: firstname}" package="WebExcess.Comments" /></p>
-<p><f:translate id="email.text" arguments="{0: comment.firstname, 1: documentUri}" package="WebExcess.Comments" /></p>
+{namespace comments=WebExcess\Comments\ViewHelpers}
+<p><comments:translate id="email.salutation" arguments="{0: firstname}" /></p>
+<p><comments:translate id="email.text" arguments="{0: comment.firstname, 1: documentUri}" /></p>

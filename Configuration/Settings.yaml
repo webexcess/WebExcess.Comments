@@ -39,6 +39,9 @@ WebExcess:
       enabled: false
       websiteKey: ''
       secretKey: ''
+    translation:
+      package: 'WebExcess.Comments'
+      source: 'Main'
     mailer:
       testMode: false
       commentCreatedView:

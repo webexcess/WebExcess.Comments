@@ -1,7 +1,8 @@
+{namespace comments=WebExcess\Comments\ViewHelpers}
 <f:form.validationResults for="comment.{fieldname}">
     <div class="form-input{f:if(condition: validationResults.flattenedErrors, then: ' has-error')}">
         <f:form.textfield property="{fieldname}" id="{fieldname}" type="{f:if(condition: type, then: type, else: 'text')}" class="form-input-field" />
-        <label for="{fieldname}" class="form-input-label"><f:translate id="comment.form.{fieldname}" />{f:if(condition: required, then: '<sup class="is-required">*</sup>')}</label>
+        <label for="{fieldname}" class="form-input-label"><comments:translate id="comment.form.{fieldname}" />{f:if(condition: required, then: '<sup class="is-required">*</sup>')}</label>
         <f:render partial="Validation" arguments="{fieldname: fieldname}" />
     </div>
 </f:form.validationResults>

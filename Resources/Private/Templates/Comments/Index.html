@@ -1,10 +1,11 @@
+{namespace comments=WebExcess\Comments\ViewHelpers}
 <f:if condition="{allowCommenting}">
     <div class="webexcess-comment-form">
         <f:flashMessages as="flashMessages">
             <f:for each="{flashMessages}" as="flashMessage">
                 <f:if condition="{flashMessage.code}">
                     <div class="alert alert-{f:if(condition: '{flashMessage.severity}==OK', then: 'success', else: 'danger')}" role="alert">
-                        <p class="mb-0"><f:translate id="comment.form.flashMessage.{flashMessage.code}" package="WebExcess.Comments">{flashMessage.message} {flashMessage.code}</f:translate></p>
+                        <p class="mb-0"><comments:translate id="comment.form.flashMessage.{flashMessage.code}">{flashMessage.message} {flashMessage.code}</comments:translate></p>
                     </div>
                 </f:if>
             </f:for>
@@ -13,7 +14,7 @@
         <f:form action="create" name="comment" id="comment-form" object="{comment}">
             <f:if condition="{isLoggedIn}">
                 <f:then>
-                    <h4><f:translate id="comment.form.loggedin" arguments="{0: comment.firstname, 1: comment.lastname}" /></h4>
+                    <h4><comments:translate id="comment.form.loggedin" arguments="{0: comment.firstname, 1: comment.lastname}" /></h4>
                     <f:render partial="HiddenField" arguments="{fieldname: 'firstname'}" />
                     <f:render partial="HiddenField" arguments="{fieldname: 'lastname'}" />
                     <f:if condition="{comment.email}">
