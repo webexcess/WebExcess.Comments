@@ -24,21 +24,21 @@ _Vendor.Blog/Configuration/NodeTypes.Comment.yaml_
 _Vendor.Blog/Classes/Vendor/Blog/Domain/Model/Comment.php_
 
 	<?php
-	
+
 	namespace Vendor\Blog\Domain\Model;
-	
+
 	use Neos\Flow\Annotations as Flow;
 	use WebExcess\Comments\Domain\Model\Comment as CommentOriginal;
 	use WebExcess\Comments\Domain\Model\CommentInterface;
-	
+
 	class Comment extends CommentOriginal implements CommentInterface
 	{
-	
+
 		/**
 		 * @var string
 		 */
 		protected $phone;
-	
+
 		/**
 		 * @return string
 		 */
@@ -46,7 +46,7 @@ _Vendor.Blog/Classes/Vendor/Blog/Domain/Model/Comment.php_
 		{
 			return $this->phone;
 		}
-	
+
 		/**
 		 * @param string $phone
 		 */
@@ -54,7 +54,7 @@ _Vendor.Blog/Classes/Vendor/Blog/Domain/Model/Comment.php_
 		{
 			$this->phone = $phone;
 		}
-	
+
 	}
 
 **Replace the original Comment-Model with your version**
@@ -101,14 +101,14 @@ _Vendor.Blog/Resources/Private/Templates/Comments/Index.html_
 
 _Vendor.Blog/Resources/Private/Partials/Comments/TextField.html_
 
-	<f:form.validationResults for="comment.{fieldname}">
+	<f:validation.results for="comment.{fieldname}">
 		<div class="mf-input{f:if(condition: validationResults.flattenedErrors, then: ' mf-has-error')}">
 			<f:form.textfield property="{fieldname}" id="{fieldname}" type="{f:if(condition: type, then: type, else: 'text')}" class="mf-input-field" />
 			<div class="mf-input-bar"></div>
 			<label for="{fieldname}" class="mf-input-label"><f:translate id="properties.phone.{fieldname}" package="Vendor.Blog" source="NodeTypes/Comment" value="{f:translate(id: 'comment.form.{fieldname}', package: 'WebExcess.Comments')}" />{f:if(condition: required, then: '<sup class="is-required">*</sup>')}</label>
 			<f:render partial="Validation" arguments="{fieldname: fieldname}" />
 		</div>
-	</f:form.validationResults>
+	</f:validation.results>
 
 **Add your field translation**
 

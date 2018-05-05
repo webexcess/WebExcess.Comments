@@ -1,7 +1,7 @@
-<f:form.validationResults for="comment.{fieldname}">
+<f:validation.results for="comment.{fieldname}">
     <f:if condition="{validationResults.flattenedErrors}">
         <div class="form-group has-danger">
             <f:render partial="Validation" arguments="{fieldname: fieldname}" />
         </div>
     </f:if>
-</f:form.validationResults>
+</f:validation.results>
