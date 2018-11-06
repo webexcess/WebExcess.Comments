@@ -1,5 +1,5 @@
 {namespace comments=WebExcess\Comments\ViewHelpers}
-<f:form.validationResults for="comment.{fieldname}">
+<f:validation.results for="comment.{fieldname}">
     <div class="clearfix{f:if(condition: validationResults.flattenedErrors, then: ' error')}">
         <label>
             <f:form.checkbox property="{fieldname}" id="{fieldname}" value="1" />
@@ -7,4 +7,4 @@
         </label>
         <f:render partial="Validation" arguments="{fieldname: fieldname}" />
     </div>
-</f:form.validationResults>
+</f:validation.results>

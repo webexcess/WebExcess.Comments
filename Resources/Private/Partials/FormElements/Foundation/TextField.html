@@ -1,5 +1,5 @@
 {namespace comments=WebExcess\Comments\ViewHelpers}
-<f:form.validationResults for="comment.{fieldname}">
+<f:validation.results for="comment.{fieldname}">
     <div class="form-group{f:if(condition: validationResults.flattenedErrors, then: ' is-invalid-label')}">
         <label>
             <comments:translate id="comment.form.{fieldname}" />{f:if(condition: required, then: '<sup class="is-required">*</sup>')}
@@ -7,4 +7,4 @@
             <f:render partial="Validation" arguments="{fieldname: fieldname}" />
         </label>
     </div>
-</f:form.validationResults>
+</f:validation.results>

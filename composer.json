@@ -24,7 +24,7 @@
     ],
     "require": {
         "neos/neos": "*",
-        "flowpack/listable": "~2.0.1",
+        "flowpack/listable": "~3.0",
         "neos/swiftmailer": "~6.0.0"
     },
     "suggest": {
