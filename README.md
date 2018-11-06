@@ -9,6 +9,7 @@ This package provides your visitors the possibility to comment stuff and discuss
 | Neos | Package | Maintained |
 |------|---------|------------|
 | 3.x  | 0.0.x   | YES        |
+| 4.x  | 0.1.x   | YES        |
 
 ## Installation
 ```
