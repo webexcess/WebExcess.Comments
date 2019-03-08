@@ -1,5 +1,23 @@
 -
-  name: 'Comments Form'
+  name: 'Comments Form on Homepage'
+  uriPattern: '{node}comment/{--webexcess_comments-form.@action}'
+  defaults:
+    '@package': 'Neos.Neos'
+    '@controller': 'Frontend\Node'
+    '@format': 'html'
+    '@action': 'show'
+    '--webexcess_comments-form':
+      '@package': 'WebExcess.Comments'
+      '@controller': 'Comments'
+      '@format': 'html'
+  routeParts:
+    node:
+      handler: Neos\Neos\Routing\FrontendNodeRoutePartHandler
+      options:
+        onlyMatchSiteNodes: true
+  appendExceedingArguments: true
+-
+  name: 'Comments Form on Subpages'
   uriPattern: '{node}/comment/{--webexcess_comments-form.@action}'
   defaults:
     '@package': 'Neos.Neos'
